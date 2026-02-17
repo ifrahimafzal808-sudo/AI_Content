@@ -1,0 +1,65 @@
+kind: AdaptiveDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: passed_sharepoint_id
+    description: Sharepoint_id
+    shouldPromptUser: true
+
+  - kind: AutomaticTaskInput
+    propertyName: passed_sharepoint_title
+    description: Sharepoint_title
+    shouldPromptUser: true
+
+modelDescription: Start whenever someone enters the phrase Create Authority Brief, create a brief or new brief
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_8x1BQH
+      input: {}
+      output:
+        binding:
+          backlog_list: Topic.backlog_list
+
+      flowId: 5c5adce4-98e8-f011-8406-7c1e520307a0
+
+    - kind: Question
+      id: question_2tHQzs
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.selected_idea_string
+      prompt: |-
+        Here are the top-priority ideas from the backlog. Which one would you like to create a brief for? (You can copy and paste your choice)
+        {Topic.backlog_list}
+      entity: StringPrebuiltEntity
+
+    - kind: SearchAndSummarizeContent
+      id: gN7EaH
+      variable: Topic.selected_idea_id
+      userInput: =Topic.selected_idea_string
+      additionalInstructions: |-
+        You are an expert data extraction bot. Look at the following text and extract only the final sequence of digits. Respond with only the number and nothing else.
+        **Text to analyse:**
+        {Topic.selected_idea_string}
+        **Example 1:**
+        If the text is "Title: How to Choose a Vet | ID: 12", you must respond with "12".
+        **Example 2:**
+        If the text is "Just give me ID 45", you must respond with "45".
+        **Example 3:**
+        If the text is "The one about puppy training, ID: 8", you must respond with "8".
+
+    - kind: SendActivity
+      id: sendActivity_IUyn3w
+      activity: "Okay, let's create a brief for item ID: {Topic.selected_idea_id}."
+
+inputType:
+  properties:
+    passed_sharepoint_title:
+      displayName: passed_sharepoint_title
+      description: Sharepoint_title
+      type: String
+
+outputType: {}

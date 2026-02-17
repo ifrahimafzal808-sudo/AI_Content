@@ -1,0 +1,201 @@
+{
+    "type": "AdaptiveCard",
+    "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.5",
+    "body": [
+        {
+            "type": "TextBlock",
+            "text": "AI-Assisted P.A.V.E. Score",
+            "weight": "Bolder",
+            "size": "Large"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Here is the AI's analysis. Please review the reasoning and provide the final scores.",
+            "wrap": true,
+            "isSubtle": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "Profitability (P)",
+            "weight": "Bolder",
+            "separator": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "AI Suggestion: ${topic.profitability_score}/5. Reasoning: ${topic.profitability_reasoning}",
+            "wrap": true
+        },
+        {
+            "type": "Input.Number",
+            "id": "final_p_score",
+            "label": "Your Final P Score",
+            "min": 1,
+            "max": 5
+        },
+        {
+            "type": "TextBlock",
+            "text": "Authority (A)",
+            "weight": "Bolder",
+            "separator": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "AI Suggestion: ${topic.authority_score}/5. Reasoning: ${topic.authority_reasoning}",
+            "wrap": true
+        },
+        {
+            "type": "Input.Number",
+            "id": "final_a_score",
+            "label": "Your Final A Score",
+            "min": 1,
+            "max": 5
+        },
+        {
+            "type": "TextBlock",
+            "text": "Volume (V) - Manual Entry Required",
+            "weight": "Bolder",
+            "separator": true,
+            "color": "Attention"
+        },
+        {
+            "type": "TextBlock",
+            "text": "AI Reasoning: ${topic.volume_reasoning}",
+            "wrap": true
+        },
+        {
+            "type": "Input.Number",
+            "id": "final_v_score",
+            "label": "Your Final V Score",
+            "placeholder": "Enter score 1-5 after checking volume",
+            "min": 1,
+            "max": 5
+        },
+        {
+            "type": "TextBlock",
+            "text": "Effort (E)",
+            "weight": "Bolder",
+            "separator": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "AI Suggestion: ${topic.effort_score}/5. Reasoning: ${topic.effort_reasoning}",
+            "wrap": true
+        },
+        {
+            "type": "Input.Number",
+            "id": "final_e_score",
+            "label": "Your Final E Score",
+            "min": 1,
+            "max": 5
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.Submit",
+            "title": "Confirm & Save to Backlog"
+        }
+    ]
+}
+
+
+Formula Card:
+{
+  type: "AdaptiveCard",
+  '$schema': "https://adaptivecards.io/schemas/adaptive-card.json",
+  version: "1.5",
+  body: [
+    {
+      type: "TextBlock",
+      text: "AI-Assisted P.A.V.E. Score",
+      weight: "Bolder",
+      size: "Large"
+    },
+    {
+      type: "TextBlock",
+      text: "Here is the AI's analysis. Please review the reasoning and provide the final scores.",
+      wrap: true,
+      isSubtle: true
+    },
+    {
+      type: "TextBlock",
+      text: "Profitability (P)",
+      weight: "Bolder",
+      separator: true
+    },
+    {
+      type: "TextBlock",
+      text: "AI Suggestion: ${topic.profitability_score}/5. Reasoning: ${topic.profitability_reasoning}",
+      wrap: true
+    },
+    {
+      type: "Input.Number",
+      id: "final_p_score",
+      label: "Your Final P Score",
+      min: 1,
+      max: 5
+    },
+    {
+      type: "TextBlock",
+      text: "Authority (A)",
+      weight: "Bolder",
+      separator: true
+    },
+    {
+      type: "TextBlock",
+      text: "AI Suggestion: ${topic.authority_score}/5. Reasoning: ${topic.authority_reasoning}",
+      wrap: true
+    },
+    {
+      type: "Input.Number",
+      id: "final_a_score",
+      label: "Your Final A Score",
+      min: 1,
+      max: 5
+    },
+    {
+      type: "TextBlock",
+      text: "Volume (V) - Manual Entry Required",
+      weight: "Bolder",
+      separator: true,
+      color: "Attention"
+    },
+    {
+      type: "TextBlock",
+      text: "AI Reasoning: ${topic.volume_reasoning}",
+      wrap: true
+    },
+    {
+      type: "Input.Number",
+      id: "final_v_score",
+      label: "Your Final V Score",
+      placeholder: "Enter score 1-5 after checking volume",
+      min: 1,
+      max: 5
+    },
+    {
+      type: "TextBlock",
+      text: "Effort (E)",
+      weight: "Bolder",
+      separator: true
+    },
+    {
+      type: "TextBlock",
+      text: "AI Suggestion: ${topic.effort_score}/5. Reasoning: ${topic.effort_reasoning}",
+      wrap: true
+    },
+    {
+      type: "Input.Number",
+      id: "final_e_score",
+      label: "Your Final E Score",
+      min: 1,
+      max: 5
+    }
+  ],
+  actions: [
+    {
+      type: "Action.Submit",
+      title: "Confirm & Save to Backlog"
+    }
+  ]
+}

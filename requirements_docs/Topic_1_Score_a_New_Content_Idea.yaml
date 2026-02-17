@@ -1,0 +1,223 @@
+kind: AdaptiveDialog
+modelDescription: This topic is triggered when a user uses any of the following phrases "analyse a new idea" , "run PAVE score", or "score this keyword"
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SetVariable
+      id: setVariable_dMTvZU
+      variable: Topic.openBrace
+      value: "{"
+
+    - kind: SetVariable
+      id: setVariable_13YUvG
+      variable: Topic.closeBrace
+      value: }
+
+    - kind: Question
+      id: Question_PqNIu1
+      variable: Topic.keyword
+      prompt: What is the primary keyword or topic you would like me to analyse?
+      entity: StringPrebuiltEntity
+
+    - kind: SearchAndSummarizeContent
+      id: j7zazr
+      variable: Topic.search_summary
+      userInput: =Topic.keyword
+      additionalInstructions: "Based on a web search, please provide a detailed summary of the top 5 organic search results for the keyword: {Topic.keyword}. For each result, include its title and a brief description of its content."
+      webBrowsing: true
+
+    - kind: SearchAndSummarizeContent
+      id: akk2I4
+      variable: Topic.analysis_json
+      userInput: =Topic.keyword
+      additionalInstructions: |
+        You are an expert SEO Analyst. Your task is to analyze the following keyword and its search results, then generate a P.A.V.E. score in a strict JSON format. You will not be provided with search volume. Do not provide any text before or after the JSON object.
+        **Keyword to Analyze:** {Topic.keyword}
+        **Summary of Page 1 Search Results:**
+        {Topic.search_summary}
+        **Your Scoring Rubric & Instructions:**
+        - **Profitability Score:** Based on the keyword alone, infer a score from 1-5.
+        - **Authority Score:** Analyze the provided summary. A score of 2 indicates the page is dominated by major international brands. A score of 5 indicates the page is full of personal blogs or forums.
+        - **Effort Score:** Based on the summary, infer the effort required to create a superior piece of content from 1-5.
+        - **Volume Score:** You have not been provided with the search volume. You MUST set the score to **0** and set the reasoning to **"Please manually look up the search volume and provide a score from 1-5."**
+
+        **You must respond with only the JSON object, nothing else.**
+        **Example Output Format:**
+        **{Topic.openBrace}**
+          **"profitability_score": 3,**
+          **"profitability_reasoning": "This is a high-value informational query that attracts our target audience.",**
+          **"authority_score": 2,**
+          **"authority_reasoning": "The search results are dominated by major brands, making it difficult to rank.",**
+          **"volume_score": 0,**
+          **"volume_reasoning": "Please manually look up the search volume and provide a score from 1-5.",**
+          **"effort_score": 2,**
+          **"effort_reasoning": "Competing content includes multiple 'Ultimate Guides', requiring a comprehensive article to compete."**
+        **{Topic.closeBrace}**
+
+    - kind: ParseValue
+      id: 7ZLISk
+      variable: Topic.Parsed_Scores
+      valueType:
+        kind: Record
+        properties:
+          ai_reasoning: String
+          authority_reasoning: String
+          authority_score: Number
+          effort_reasoning: String
+          effort_score: Number
+          profitability_reasoning: String
+          profitability_score: Number
+          search_summary: String
+          volume_reasoning: String
+          volume_score: Number
+
+      value: =Topic.analysis_json
+      errorPolicy: DefaultBlank
+
+    - kind: AdaptiveCardPrompt
+      id: BQS8N6
+      interruptionPolicy:
+        allowInterruption: false
+
+      card: |-
+        ={
+          type: "AdaptiveCard",
+          '$schema': "https://adaptivecards.io/schemas/adaptive-card.json",
+          version: "1.5",
+          body: [
+            {
+              type: "TextBlock",
+              text: "AI-Assisted P.A.V.E. Score",
+              weight: "Bolder",
+              size: "Large"
+            },
+            {
+              type: "TextBlock",
+              text: "Here is the AI's analysis. Please review the reasoning and provide the final scores.",
+              wrap: true,
+              isSubtle: true
+            },
+            {
+              type: "TextBlock",
+              text: "Profitability (P)",
+              weight: "Bolder",
+              separator: true
+            },
+            {
+              type: "TextBlock",
+              text: "AI Suggestion: ${topic.profitability_score}/5. Reasoning: ${topic.profitability_reasoning}",
+              wrap: true
+            },
+            {
+              type: "Input.Number",
+              id: "final_p_score",
+              label: "Your Final P Score",
+              min: 1,
+              max: 5
+            },
+            {
+              type: "TextBlock",
+              text: "Authority (A)",
+              weight: "Bolder",
+              separator: true
+            },
+            {
+              type: "TextBlock",
+              text: "AI Suggestion: ${topic.authority_score}/5. Reasoning: ${topic.authority_reasoning}",
+              wrap: true
+            },
+            {
+              type: "Input.Number",
+              id: "final_a_score",
+              label: "Your Final A Score",
+              min: 1,
+              max: 5
+            },
+            {
+              type: "TextBlock",
+              text: "Volume (V) - Manual Entry Required",
+              weight: "Bolder",
+              separator: true,
+              color: "Attention"
+            },
+            {
+              type: "TextBlock",
+              text: "AI Reasoning: ${topic.volume_reasoning}",
+              wrap: true
+            },
+            {
+              type: "Input.Number",
+              id: "final_v_score",
+              label: "Your Final V Score",
+              placeholder: "Enter score 1-5 after checking volume",
+              min: 1,
+              max: 5
+            },
+            {
+              type: "TextBlock",
+              text: "Effort (E)",
+              weight: "Bolder",
+              separator: true
+            },
+            {
+              type: "TextBlock",
+              text: "AI Suggestion: ${topic.effort_score}/5. Reasoning: ${topic.effort_reasoning}",
+              wrap: true
+            },
+            {
+              type: "Input.Number",
+              id: "final_e_score",
+              label: "Your Final E Score",
+              min: 1,
+              max: 5
+            }
+          ],
+          actions: [
+            {
+              type: "Action.Submit",
+              title: "Confirm & Save to Backlog"
+            }
+          ]
+        }
+      output:
+        binding:
+          actionSubmitId: Topic.actionSubmitId
+          final_a_score: Topic.final_a_score
+          final_e_score: Topic.final_e_score
+          final_p_score: Topic.final_p_score
+          final_v_score: Topic.final_v_score
+
+      outputType:
+        properties:
+          actionSubmitId: String
+          final_a_score: Number
+          final_e_score: Number
+          final_p_score: Number
+          final_v_score: Number
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_Ao8yiq
+      input:
+        binding:
+          number: =Topic.final_p_score
+          number_1: =Topic.final_a_score
+          number_2: =Topic.final_v_score
+          number_3: =Topic.final_e_score
+          text: =Topic.keyword
+          text_1: =Topic.search_summary
+          text_2: =Topic.search_summary
+
+      output: {}
+      flowId: 60755c45-5de7-f011-8406-7c1e520307a0
+
+    - kind: SendActivity
+      id: sendActivity_Vzfdsx
+      activity: Great! I've saved {Topic.keyword} to the backlog. When you're ready to create a content brief, just tell me to 'create a brief'.
+
+    - kind: EndConversation
+      id: yB61lk
+
+inputType: {}
+outputType: {}

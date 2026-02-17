@@ -1,0 +1,1530 @@
+{
+  "name": "AI Content",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "ID",
+              "lookupValue": "={{ $json.query.id.toNumber() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        256
+      ],
+      "id": "77ba1854-1362-44d7-96b4-e149f5f6c454",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Approved for Briefing"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        448
+      ],
+      "id": "1b99701e-3612-44e2-8dc8-2c6438a3bff6",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "FetchBacklogIdeas",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        448
+      ],
+      "id": "e87cdcdb-df23-4b48-b73d-29feaa2e6e27",
+      "name": "FetchBacklogIdeas",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "path": "FetchItemDetails",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        256
+      ],
+      "id": "7696c62a-78bd-4da5-9f47-67956bed66ce",
+      "name": "FetchItemDetails",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $json.query.Keyword }}",
+            "Target_Brand": "={{ $json.query.Brand }}",
+            "Status": "={{ $json.pave_status }}",
+            "Search_Summary": "={{ $json.query.search_summary }}",
+            "AI_Reasoning": "={{ $json.query.reasoning }}",
+            "Is_Outline_Approved": "false"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target_Brand",
+              "displayName": "Target_Brand",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approved_Outline",
+              "displayName": "Approved_Outline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Is_Outline_Approved",
+              "displayName": "Is_Outline_Approved",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Search_Summary",
+              "displayName": "Search_Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AI_Reasoning",
+              "displayName": "AI_Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Draft_HTML_Body",
+              "displayName": "Draft_HTML_Body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image_Prompt",
+              "displayName": "Image_Prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Alt_Text_Suggested",
+              "displayName": "Alt_Text_Suggested",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover_Image_URL",
+              "displayName": "Cover_Image_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Master_Asset_Link",
+              "displayName": "Master_Asset_Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last_ErrorLast_Error",
+              "displayName": "Last_ErrorLast_Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        672
+      ],
+      "id": "a11a08bf-b468-44ac-a4b7-6a4ee2d1f9a2",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "SaveScoredIdea",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        672
+      ],
+      "id": "93bc48dc-4836-4b0e-87e2-7fcebde362e7",
+      "name": "SaveScoredIdea",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "66f2a180-6311-44ab-a4a6-b3aedbf9665c",
+              "leftValue": "={{ $json.query.scores_p.toNumber() + $json.query.scores_a.toNumber() + $json.query.scores_v.toNumber() + $json.query.scores_e.toNumber() }}",
+              "rightValue": 18,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        192,
+        672
+      ],
+      "id": "daca2187-a917-48b7-af19-846f3e83bc35",
+      "name": "If",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items\nfor (const item of $input.all()) {\n  \n  // 1. Get the data\n  // Note: Based on your screenshot, the data is inside a \"query\" object.\n  const inputData = item.json.query; \n\n  // 2. Parse Scores \n  // We use parseInt() because webhook query parameters often come in as strings (e.g., \"5\")\n  // We use ( || 0 ) as a fallback in case a score is missing.\n  const scoreP = parseInt(inputData.scores_p || 0);\n  const scoreA = parseInt(inputData.scores_a || 0);\n  const scoreV = parseInt(inputData.scores_v || 0);\n  const scoreE = parseInt(inputData.scores_e || 0);\n\n  // 3. Calculate Total Score (Flowchart Step B)\n  const totalScore = scoreP + scoreA + scoreV + scoreE;\n\n  // 4. Determine Status Logic (Flowchart Steps C, D, E)\n  let status = 'PAVE Scored'; // Default status (No branch)\n  \n  if (totalScore >= 18) {\n    status = 'Approved for Briefing'; // (Yes branch)\n  }\n\n  // 5. Append these new values to the item\n  // This makes them available for the SharePoint nodes later\n  item.json.total_score = totalScore;\n  item.json.pave_status = status;\n}\n\n// Return the items with the new fields added\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        672
+      ],
+      "id": "ace67932-7990-4322-a616-4f8311627871",
+      "name": "Calculate pave score"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        816,
+        672
+      ],
+      "id": "bd1f8bee-143c-4ec4-949f-1c5d18b2b53a",
+      "name": "Respond to SaveScoredIdea"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        384,
+        448
+      ],
+      "id": "56750bc1-5601-4c55-bc23-377c004a8538",
+      "name": "Respond to FetchBacklogIdeas"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        384,
+        256
+      ],
+      "id": "45f74ad9-6c3d-4597-88da-ee9efc3031d5",
+      "name": "Respond to FetchItemDetails"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ",
+          "mode": "list",
+          "cachedResultName": "Brand_Configuration",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        864
+      ],
+      "id": "379f316f-cfbd-4b25-9e70-0a38aeea47c6",
+      "name": "Get row(s) in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "GetActiveBrands",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        864
+      ],
+      "id": "47169986-8928-44be-96c4-4687675d470d",
+      "name": "GetActiveBrands",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        592,
+        864
+      ],
+      "id": "8d9e3878-d7cb-4d07-8ead-86900280faf5",
+      "name": "Respond to GetActiveBrands"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Map over all input items to extract the 'Brand' field\nconst allBrands = items.map(item => item.json.Brand);\n\n// 2. Clean the data:\n// - Filter out nulls/undefined\n// - Trim whitespace\n// - Remove empty strings\n// - Use 'Set' to remove duplicates\nconst uniqueBrands = [...new Set(\n  allBrands\n    .filter(brand => brand) // Remove nulls\n    .map(brand => brand.toString().trim()) // Ensure string and remove whitespace\n    .filter(brand => brand !== \"\") // Remove resulting empty strings\n)];\n\n// 3. Return the result as a single list (Array)\nreturn [\n  {\n    json: {\n      brand_list: uniqueBrands\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        864
+      ],
+      "id": "06a719a5-1345-4193-9a25-da3df78b8761",
+      "name": "get all brands in a list"
+    },
+    {
+      "parameters": {
+        "path": "GetBrandDetails",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        1056
+      ],
+      "id": "520b6116-8d8a-4002-be1e-8344f27e4a71",
+      "name": "GetBrandDetails",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72",
+      "notesInFlow": true,
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ",
+          "mode": "list",
+          "cachedResultName": "Brand_Configuration",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Brand",
+              "lookupValue": "={{ $json.query.brand_name }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        1056
+      ],
+      "id": "546c7143-b8e8-4f7c-aa78-cdaeab726feb",
+      "name": "get_brand_details",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        384,
+        1056
+      ],
+      "id": "c38e933f-764b-4978-8d38-b30d5f548efd",
+      "name": "Respond to GetBrandDetails"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "UpdateBriefAndStatus",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        1248
+      ],
+      "id": "c1283938-8779-483f-bc7b-d46908b4b31b",
+      "name": "UpdateBriefAndStatus",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72",
+      "notesInFlow": true,
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        384,
+        1248
+      ],
+      "id": "1f90c97f-652b-44d3-8f1f-750d45ba9276",
+      "name": "Respond to UpdateBriefAndStatus"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $json.query.id }}",
+            "Authority_Brief": "={{ $json.query.brief_text }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target_Brand",
+              "displayName": "Target_Brand",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approved_Outline",
+              "displayName": "Approved_Outline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Is_Outline_Approved",
+              "displayName": "Is_Outline_Approved",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Search_Summary",
+              "displayName": "Search_Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AI_Reasoning",
+              "displayName": "AI_Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Authority_Brief",
+              "displayName": "Authority_Brief",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Draft_HTML_Body",
+              "displayName": "Draft_HTML_Body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image_Prompt",
+              "displayName": "Image_Prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Alt_Text_Suggested",
+              "displayName": "Alt_Text_Suggested",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover_Image_URL",
+              "displayName": "Cover_Image_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Master_Asset_Link",
+              "displayName": "Master_Asset_Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last_ErrorLast_Error",
+              "displayName": "Last_ErrorLast_Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        1248
+      ],
+      "id": "46b52352-7654-4910-90b5-5cca70817cae",
+      "name": "update brief text",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "UpdateContentStatus",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        1440
+      ],
+      "id": "f3748406-cef0-4dcc-a843-5998d9997f84",
+      "name": "UpdateContentStatus",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72",
+      "notesInFlow": true,
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        384,
+        1440
+      ],
+      "id": "96a9ceca-c79b-441c-9ce1-635163a39516",
+      "name": "Respond to UpdateContentStatus"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $json.query.id }}",
+            "Authority_Brief": "=",
+            "Status": "={{ $json.query.new_status }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target_Brand",
+              "displayName": "Target_Brand",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approved_Outline",
+              "displayName": "Approved_Outline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Is_Outline_Approved",
+              "displayName": "Is_Outline_Approved",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Search_Summary",
+              "displayName": "Search_Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AI_Reasoning",
+              "displayName": "AI_Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Authority_Brief",
+              "displayName": "Authority_Brief",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Draft_HTML_Body",
+              "displayName": "Draft_HTML_Body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image_Prompt",
+              "displayName": "Image_Prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Alt_Text_Suggested",
+              "displayName": "Alt_Text_Suggested",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover_Image_URL",
+              "displayName": "Cover_Image_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Master_Asset_Link",
+              "displayName": "Master_Asset_Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last_ErrorLast_Error",
+              "displayName": "Last_ErrorLast_Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        1440
+      ],
+      "id": "395118a8-44a4-48da-b05e-486125a2bd5c",
+      "name": "update status text",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## AnalyzeKeyword_Backend",
+        "height": 288,
+        "width": 1584
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -112,
+        1648
+      ],
+      "typeVersion": 1,
+      "id": "6af1af9e-15df-4cd8-8065-af28180303d5",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "AnalyzeKeyword_Backend",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -48,
+        1760
+      ],
+      "id": "e120e656-efd5-4d01-81e5-5d64a0ecaefb",
+      "name": "AnalyzeKeyword_Backend",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1280,
+        1760
+      ],
+      "id": "5ccf26f0-11b3-455e-a153-ddabb4ed912a",
+      "name": "Respond to AnalyzeKeyword_Backend"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-nano",
+          "mode": "list",
+          "cachedResultName": "GPT-5-NANO"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=[PERSONA]\nYou are Vera Sterling, Senior SEO Strategist with 12+ years managing \norganic search for Fortune 500 and high-growth companies. You transform \nSERP data into battle-tested competitive strategies.\n{{ $now }}\n\n[ACTION]\nSearch the keyword: {{ $json.query.Keyword }} and analyze the top 5 \norganic ranking websites. Execute this workflow:\n\n1. IDENTIFY: Capture the top 5 organic results, their URLs, titles, \n   and meta descriptions\n2. ANALYZE: For each result, summarize content type, apparent authority \n   signals, and key structural elements\n3. SYNTHESIZE: Compare findings and extract the dominant patterns\n\n[VOICE]\nConcise, analytical, data-focused. No fluff. Present facts and patterns \nonly.\n\n[EXPECTATION]\nOUTPUT FORMAT: Search Summary Only\n\nStructure your response exactly as follows:\n\n---\n**Keyword:** [exact keyword searched]\n**Date:** [current date]\n**Search Intent:** [Informational/Commercial/Transactional/Navigational]\n\n**Top 5 Results:**\n\n| # | Domain | Title | Content Type | Key Strength |\n|---|--------|-------|--------------|--------------|\n| 1 | [domain] | [title] | [type] | [1-line strength] |\n| 2 | [domain] | [title] | [type] | [1-line strength] |\n| 3 | [domain] | [title] | [type] | [1-line strength] |\n| 4 | [domain] | [title] | [type] | [1-line strength] |\n| 5 | [domain] | [title] | [type] | [1-line strength] |\n\n**Pattern Analysis:**\n- Dominant content format: [e.g., listicles, product reviews, guides]\n- Common authority signals: [e.g., brand recognition, backlink profile]\n- SERP features present: [e.g., featured snippet, PAA, images]\n- Content gap opportunity: [1-sentence insight]\n\n**Confidence:** [High/Medium/Low]\n"
+            }
+          ]
+        },
+        "builtInTools": {
+          "webSearch": {
+            "searchContextSize": "high"
+          }
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        1760
+      ],
+      "id": "cc56a326-5a01-4dba-9bcf-4dc0da494490",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an SEO strategist. Return ONLY valid JSON (no markdown).\n\nBrand: {{ $('AnalyzeKeyword_Backend').item.json.query.Brand_Name }}\n---\n\nPersona: {{ $json.Target_Persona }}\n---\n\nProduct context: {{ $json.Product_Context }}\n---\n\nSearch summary: {{ $('Message a model').item.json.output[0].content[0].text }}\n\nRules:- Keep each reasoning <= 15 words.- volume_score must be 0 and volume_reasoning must be \"Manual check required\".\nOutput JSON:\n{\n\"profitability_score\": 1-5,\n\"profitability_reasoning\": \"...\",\n\"authority_score\": 1-5,\n\"authority_reasoning\": \"...\",\n\"volume_score\": 0,\n\"volume_reasoning\": \"Manual check required\",\n\"effort_score\": 1-5,\n\"effort_reasoning\": \"...\",\n\"ai_reasoning\": \"also give you reasoning.\"\n}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        720,
+        1760
+      ],
+      "id": "eefe869c-f728-4931-8a20-0625c1db4b3f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-5-nano"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        672,
+        1952
+      ],
+      "id": "fddd9879-1194-4c35-b8be-36ba9157f834",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ",
+          "mode": "list",
+          "cachedResultName": "Brand_Configuration",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Brand",
+              "lookupValue": "={{ $('AnalyzeKeyword_Backend').item.json.query.Brand_Name }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        512,
+        1760
+      ],
+      "id": "4e0c82a9-fb3d-4f88-8ddf-788db1744197",
+      "name": "Get row(s) in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\"profitability_score\": 5,\n\"profitability_reasoning\": \"...\",\n\"authority_score\": 5,\n\"authority_reasoning\": \"...\",\n\"volume_score\": 0,\n\"volume_reasoning\": \"Manual check required\",\n\"effort_score\": 5,\n\"effort_reasoning\": \"...\",\n\"ai_reasoning\":\"...\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        832,
+        1984
+      ],
+      "id": "04fb3af1-7311-4185-963a-1c92cb7327da",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        768,
+        2192
+      ],
+      "id": "e55b52d3-e282-446f-8173-4a3758c2a0a7",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through items (in case there are multiple)\nreturn items.map(item => {\n  \n  // 1. Get the data from the Current Node (The scores)\n  // We look for 'output' because your snippet showed $json.output.score...\n  const inputData = item.json.output || item.json;\n\n  // 2. Get the Search Summary from the \"Message a model\" node\n  // We use .first() to grab the result. If you have multiple items, you might need to match indices.\n  let searchSummary = \"\";\n  try {\n    const modelNode = $('Message a model').first(); \n    searchSummary = modelNode.json.output[0].content[0].text;\n  } catch (error) {\n    searchSummary = \"Error retrieving summary: \" + error.message;\n  }\n\n  // 3. Create the clean object\n  // JavaScript will automatically handle the newlines and quotes in search_summary here\n  const cleanData = {\n    profitability_score: inputData.profitability_score,\n    profitability_reasoning: inputData.profitability_reasoning,\n    authority_score: inputData.authority_score,\n    authority_reasoning: inputData.authority_reasoning,\n    volume_score: inputData.volume_score,\n    volume_reasoning: inputData.volume_reasoning,\n    effort_score: inputData.effort_score,\n    effort_reasoning: inputData.effort_reasoning,\n    search_summary: searchSummary,\n    ai_reasoning: inputData.ai_reasoning\n  };\n\n  // 4. Return the data\n  return {\n    json: cleanData\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        1760
+      ],
+      "id": "d35e2dd7-682a-48c2-a076-39209702c2b2",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to FetchItemDetails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Respond to FetchBacklogIdeas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FetchBacklogIdeas": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FetchItemDetails": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to SaveScoredIdea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SaveScoredIdea": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Calculate pave score",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Calculate pave score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate pave score": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "get all brands in a list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetActiveBrands": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get all brands in a list": {
+      "main": [
+        [
+          {
+            "node": "Respond to GetActiveBrands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetBrandDetails": {
+      "main": [
+        [
+          {
+            "node": "get_brand_details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_brand_details": {
+      "main": [
+        [
+          {
+            "node": "Respond to GetBrandDetails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateBriefAndStatus": {
+      "main": [
+        [
+          {
+            "node": "update brief text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update brief text": {
+      "main": [
+        [
+          {
+            "node": "Respond to UpdateBriefAndStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateContentStatus": {
+      "main": [
+        [
+          {
+            "node": "update status text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update status text": {
+      "main": [
+        [
+          {
+            "node": "Respond to UpdateContentStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AnalyzeKeyword_Backend": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to AnalyzeKeyword_Backend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "7c185a87-6a9f-412f-ab2e-6e4a58a53d72",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b17952fdda23ea95a35573e60f9e1f79c4cf3d049dcd678b8e5f264230f42dae"
+  },
+  "id": "uhbm0vva0AAAGgZnZ2-iL",
+  "tags": []
+}
