@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/n8n/:path*",
+            "destination": "https://vitcornu.app.n8n.cloud/:path*"
+        }
+    ]
+}
