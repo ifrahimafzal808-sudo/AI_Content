@@ -236,23 +236,36 @@ class ApiService {
             }
             return { items, total: items.length }
         }
-        // Real n8n: FetchBacklogIdeas returns array of sheet rows
-        const response = await this.request('/webhook/FetchBacklogIdeas')
-        // Transform Google Sheets data to frontend format
+
+        // Determine which webhook to call
+        // If status is provided, use the new FetchBriefedItem webhook
+        // If 'All' or no status, we might still want to use the old FetchBacklogIdeas or handle it gracefully
+        const status = params.status && params.status !== 'All' ? params.status : null
+
+        let url = '/webhook/FetchAllItems'
+        if (status) {
+            url = `/webhook/FetchBriefedItem?status=${encodeURIComponent(status)}`
+        }
+
+        const response = await this.request(url)
+
+        // Transform the data to frontend format
+        // The new webhook returns fields like ID, Title, Target_Brand, Status
         const items = (Array.isArray(response) ? response : [response]).map(row => ({
-            id: row.ID,
-            title: row.Title,
-            brand: row.Target_Brand,
+            id: row.ID || row.id,
+            title: row.Title || row.title,
+            brand: row.Target_Brand || row.brand || row.brand_name,
             pave_scores: {
-                P: parseInt(row.P_Score) || 0,
-                A: parseInt(row.A_Score) || 0,
-                V: parseInt(row.V_Score) || 0,
-                E: parseInt(row.E_Score) || 0
+                P: parseInt(row.P_Score || row.p_score) || 0,
+                A: parseInt(row.A_Score || row.a_score) || 0,
+                V: parseInt(row.V_Score || row.v_score) || 0,
+                E: parseInt(row.E_Score || row.e_score) || 0
             },
-            total_score: parseInt(row.Total_Score) || 0,
-            status: row.Status,
-            created_date: row.Created_Date || ''
+            total_score: parseInt(row.Total_Score || row.total_score) || 0,
+            status: row.Status || row.status,
+            created_date: row.Created_Date || row.created_date || ''
         }))
+
         return { items, total: items.length }
     }
 
@@ -266,15 +279,17 @@ class ApiService {
                 authority_brief: '## Content Goal\nCreate a comprehensive guide on ' + (item?.title || 'topic') + '...'
             }
         }
-        // Real n8n: FetchItemDetails?id=X returns single sheet row
+        // Real n8n: FetchItemDetails?id=X returns single sheet row (as array or object)
         const response = await this.request(`/webhook/FetchItemDetails?id=${id}`)
+        const item = Array.isArray(response) ? response[0] : response
+
         return {
-            id: response.ID,
-            title: response.Title,
-            brand: response.Target_Brand,
-            status: response.Status,
-            search_summary: response.Search_Summary,
-            authority_brief: response.Authority_Brief
+            id: item.ID,
+            title: item.Title,
+            brand: item.Target_Brand,
+            status: item.Status,
+            search_summary: item.Search_Summary,
+            authority_brief: item.Authority_Brief
         }
     }
 
@@ -288,20 +303,43 @@ class ApiService {
                 alternative: 'Comparison Page'
             }
         }
-        // ⚠️ NOT IMPLEMENTED YET IN N8N
-        return this.request('/webhook/RecommendFormat', {
-            method: 'POST',
-            body: JSON.stringify(data)
-        })
+        // Real n8n: BriefRecommendation?id=X
+        const response = await this.request(`/webhook/BriefRecommendation?id=${data.item_id}`)
+        // n8n returns [{ output: { ... } }]
+        const item = Array.isArray(response) ? response[0] : response
+        return item.output || item
     }
 
-    async generateBrief(data) {
+    async generateAuthorityBrief(data) {
         if (USE_MOCK) {
             await delay(3000)
             return {
-                success: true,
-                brief_text: `## Authority Brief: ${data.keyword || 'Topic'}\n\n### Content Goal\nCreate a comprehensive investigative article...\n\n### Target Audience\nHealth-conscious consumers aged 25-55...\n\n### Content Outline\n- **H2: Introduction & Background**\n- **H2: Key Benefits**\n- **H2: Expert Insights**\n- **H2: Comparison & Analysis**\n- **H2: Conclusion & Recommendations**\n\n### Key Points to Cover\n1. Scientific evidence and studies\n2. Expert opinions from trusted sources\n3. Product comparisons where relevant\n4. Safety considerations and disclaimers`
+                status: 'success',
+                brief_text: `# Authority Brief: ${data.keyword || 'Topic'}\n\n### Content Goal...`
             }
+        }
+        // Real n8n: GenerateAuthorityBrief
+        const response = await this.request('/webhook/GenerateAuthorityBrief', {
+            method: 'POST',
+            body: JSON.stringify({
+                Keyword: data.keyword,
+                Brand: data.brand,
+                Persona: data.persona,
+                Tone: data.tone,
+                Format: data.format,
+                'Search Summary': data.search_summary,
+                Differentiator: data.differentiator,
+                'SME Input': data.sme_input
+            })
+        })
+        const item = Array.isArray(response) ? response[0] : response
+        return item
+    }
+
+    async updateBriefStatus(data) {
+        if (USE_MOCK) {
+            await delay(1000)
+            return { success: true }
         }
         // Real n8n: UpdateBriefAndStatus updates Authority_Brief column
         return this.request(`/webhook/UpdateBriefAndStatus`, {

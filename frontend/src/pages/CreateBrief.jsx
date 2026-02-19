@@ -14,6 +14,8 @@ export default function CreateBrief() {
     const [recommendLoading, setRecommendLoading] = useState(false)
     const [generatingBrief, setGeneratingBrief] = useState(false)
     const [briefResult, setBriefResult] = useState(null)
+    const [savingBrief, setSavingBrief] = useState(false)
+    const [savedSuccess, setSavedSuccess] = useState(false)
 
     const handleRecommend = async () => {
         if (!selectedItemId) return
@@ -31,18 +33,49 @@ export default function CreateBrief() {
     const handleGenerate = async () => {
         if (!selectedItemId) return
         setGeneratingBrief(true)
+        setSavedSuccess(false)
+        setBriefResult(null)
         try {
-            const result = await api.generateBrief({
-                item_id: selectedItemId,
+            // 1. Fetch Item Details (for keyword, brand name, search summary)
+            const itemDetails = await api.getContentDetails(selectedItemId)
+
+            // 2. Fetch Brand Details (for persona, tone)
+            const brandDetails = await api.getBrandDetails(itemDetails.brand)
+
+            // 3. Generate Brief via AI
+            const result = await api.generateAuthorityBrief({
+                keyword: itemDetails.title,
+                brand: itemDetails.brand,
+                persona: brandDetails.persona || 'Professional', // Fallback
+                tone: brandDetails.tone || 'Helpful', // Fallback
                 format: format?.format || 'In-Depth Guide',
+                search_summary: itemDetails.search_summary,
                 differentiator,
                 sme_input: smeInput
             })
+
+            // 4. Show result for approval
             setBriefResult(result)
         } catch (err) {
             alert('Brief generation failed: ' + err.message)
         } finally {
             setGeneratingBrief(false)
+        }
+    }
+
+    const handleSaveBrief = async () => {
+        if (!selectedItemId || !briefResult) return
+        setSavingBrief(true)
+        try {
+            await api.updateBriefStatus({
+                item_id: selectedItemId,
+                brief_text: briefResult.brief_text
+            })
+            setSavedSuccess(true)
+        } catch (err) {
+            alert('Failed to save brief: ' + err.message)
+        } finally {
+            setSavingBrief(false)
         }
     }
 
@@ -68,7 +101,12 @@ export default function CreateBrief() {
                     <label className="label">Choose from Approved Items</label>
                     <select
                         value={selectedItemId}
-                        onChange={(e) => { setSelectedItemId(e.target.value); setFormat(null); setBriefResult(null); }}
+                        onChange={(e) => {
+                            setSelectedItemId(e.target.value);
+                            setFormat(null);
+                            setBriefResult(null);
+                            setSavedSuccess(false);
+                        }}
                         className="select"
                     >
                         <option value="">-- Select an item --</option>
@@ -159,8 +197,9 @@ export default function CreateBrief() {
                 <div className="card animate-fade-in" style={{ borderColor: 'var(--color-success)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-4)' }}>
                         <h3>✅ Brief Generated</h3>
-                        <span className="badge badge-success">Saved to SharePoint</span>
+                        {savedSuccess && <span className="badge badge-success">Saved to SharePoint</span>}
                     </div>
+
                     <div style={{
                         background: 'var(--bg-secondary)',
                         borderRadius: 'var(--radius-lg)',
@@ -168,10 +207,27 @@ export default function CreateBrief() {
                         fontSize: 'var(--font-size-sm)',
                         color: 'var(--text-secondary)',
                         lineHeight: 1.8,
-                        whiteSpace: 'pre-wrap'
+                        whiteSpace: 'pre-wrap',
+                        marginBottom: 'var(--space-4)',
+                        maxHeight: '400px',
+                        overflowY: 'auto'
                     }}>
                         {briefResult.brief_text}
                     </div>
+
+                    {!savedSuccess ? (
+                        <button
+                            onClick={handleSaveBrief}
+                            disabled={savingBrief}
+                            className="btn btn-success btn-full"
+                        >
+                            {savingBrief ? 'Saving...' : '👍 Approve & Save Brief'}
+                        </button>
+                    ) : (
+                        <div style={{ textAlign: 'center', color: 'var(--color-success)', fontWeight: 'bold' }}>
+                            Brief approved and status updated!
+                        </div>
+                    )}
                 </div>
             )}
         </div>

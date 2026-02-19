@@ -6,11 +6,13 @@ import StatusBadge from '../components/common/StatusBadge'
 
 const STATUS_FILTERS = [
     'All',
+    'Backlog',
     'PAVE Scored',
-    'Approved for Briefing',
     'Briefed',
+    'In-Progress',
     'In Production',
-    'Published'
+    'Approved for Briefing',
+    'Raw Idea'
 ]
 
 export default function ContentBacklog() {

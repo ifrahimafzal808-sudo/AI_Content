@@ -87,7 +87,9 @@
       "parameters": {
         "path": "FetchBacklogIdeas",
         "responseMode": "responseNode",
-        "options": {}
+        "options": {
+          "allowedOrigins": "*"
+        }
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
@@ -103,7 +105,9 @@
       "parameters": {
         "path": "FetchItemDetails",
         "responseMode": "responseNode",
-        "options": {}
+        "options": {
+          "allowedOrigins": "*"
+        }
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
@@ -218,6 +222,16 @@
               "canBeUsedToMatch": true
             },
             {
+              "id": "Authority_Brief",
+              "displayName": "Authority_Brief",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
               "id": "Draft_HTML_Body",
               "displayName": "Draft_HTML_Body",
               "required": false,
@@ -297,7 +311,9 @@
         "httpMethod": "POST",
         "path": "SaveScoredIdea",
         "responseMode": "responseNode",
-        "options": {}
+        "options": {
+          "allowedOrigins": "*"
+        }
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
@@ -435,7 +451,9 @@
       "parameters": {
         "path": "GetActiveBrands",
         "responseMode": "responseNode",
-        "options": {}
+        "options": {
+          "allowedOrigins": "*"
+        }
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
@@ -478,7 +496,9 @@
       "parameters": {
         "path": "GetBrandDetails",
         "responseMode": "responseNode",
-        "options": {}
+        "options": {
+          "allowedOrigins": "*"
+        }
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
@@ -554,7 +574,9 @@
         "httpMethod": "PUT",
         "path": "UpdateBriefAndStatus",
         "responseMode": "responseNode",
-        "options": {}
+        "options": {
+          "allowedOrigins": "*"
+        }
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
@@ -602,7 +624,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "ID": "={{ $json.query.id }}",
+            "ID": "={{ $json.query.id || $json.body.id }}",
             "Authority_Brief": "={{ $json.query.brief_text }}"
           },
           "matchingColumns": [
@@ -782,7 +804,9 @@
         "httpMethod": "PUT",
         "path": "UpdateContentStatus",
         "responseMode": "responseNode",
-        "options": {}
+        "options": {
+          "allowedOrigins": "*"
+        }
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
@@ -1010,7 +1034,7 @@
     {
       "parameters": {
         "content": "## AnalyzeKeyword_Backend",
-        "height": 288,
+        "height": 544,
         "width": 1584
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -1027,13 +1051,15 @@
         "httpMethod": "POST",
         "path": "AnalyzeKeyword_Backend",
         "responseMode": "responseNode",
-        "options": {}
+        "options": {
+          "allowedOrigins": "*"
+        }
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
         -48,
-        1760
+        1712
       ],
       "id": "e120e656-efd5-4d01-81e5-5d64a0ecaefb",
       "name": "AnalyzeKeyword_Backend",
@@ -1048,7 +1074,7 @@
       "typeVersion": 1.5,
       "position": [
         1280,
-        1760
+        1712
       ],
       "id": "5ccf26f0-11b3-455e-a153-ddabb4ed912a",
       "name": "Respond to AnalyzeKeyword_Backend"
@@ -1079,7 +1105,7 @@
       "typeVersion": 2.1,
       "position": [
         160,
-        1760
+        1712
       ],
       "id": "cc56a326-5a01-4dba-9bcf-4dc0da494490",
       "name": "Message a model",
@@ -1101,7 +1127,7 @@
       "typeVersion": 3.1,
       "position": [
         720,
-        1760
+        1712
       ],
       "id": "eefe869c-f728-4931-8a20-0625c1db4b3f",
       "name": "AI Agent"
@@ -1120,8 +1146,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.3,
       "position": [
-        672,
-        1952
+        688,
+        1888
       ],
       "id": "fddd9879-1194-4c35-b8be-36ba9157f834",
       "name": "OpenAI Chat Model",
@@ -1164,7 +1190,7 @@
       "typeVersion": 4.7,
       "position": [
         512,
-        1760
+        1712
       ],
       "id": "4e0c82a9-fb3d-4f88-8ddf-788db1744197",
       "name": "Get row(s) in sheet3",
@@ -1184,7 +1210,7 @@
       "typeVersion": 1.3,
       "position": [
         832,
-        1984
+        1904
       ],
       "id": "04fb3af1-7311-4185-963a-1c92cb7327da",
       "name": "Structured Output Parser"
@@ -1203,8 +1229,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.3,
       "position": [
-        768,
-        2192
+        784,
+        2048
       ],
       "id": "e55b52d3-e282-446f-8173-4a3758c2a0a7",
       "name": "OpenAI Chat Model1",
@@ -1223,13 +1249,316 @@
       "typeVersion": 2,
       "position": [
         1072,
-        1760
+        1712
       ],
       "id": "d35e2dd7-682a-48c2-a076-39209702c2b2",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "content": "## Brief Recommendation",
+        "height": 480,
+        "width": 1568
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        2256
+      ],
+      "typeVersion": 1,
+      "id": "8b2a6f2f-e9f0-4f97-b65d-d1db1da74549",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        976,
+        2320
+      ],
+      "id": "43fbf0b6-b939-48d9-acc2-e22171dbdbb7",
+      "name": "Respond to BriefRecommendation"
+    },
+    {
+      "parameters": {
+        "path": "BriefRecommendation",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -48,
+        2320
+      ],
+      "id": "6395abca-77a5-4d30-85b1-4dc62e79563f",
+      "name": "BriefRecommendation",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "url": "https://vitcornu.app.n8n.cloud/webhook/FetchItemDetails",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "id",
+              "value": "={{ $json.query.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        176,
+        2320
+      ],
+      "id": "84f15108-9e19-4600-b509-671159a40cb9",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Analyze this keyword and search context:\nKeyword: \"{{ $json.Title }}\"\nSearch Summary: \"{{ $json.Search_Summary }}\"\n\nBased on search intent, recommend ONE content format:\n1. Comparison Page (product/service comparisons)\n2. In-Depth Guide (educational, how-to)\n3. Listicle (top 10, best of)\n4. Landing Page (tool/resource)\n5. Research Report (data-driven)\n\nReference Return JSON:\n{\n  \"format\": \"Comparison Page\",\n  \"reasoning\": \"High commercial intent with product focus\",\n  \"alternative\": \"In-Depth Guide\"\n}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        416,
+        2272
+      ],
+      "id": "7ef7227d-62b8-4423-8912-a4a75436f095",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-5-nano"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        368,
+        2480
+      ],
+      "id": "322d19f9-7628-45e1-ad9f-107ac05109b8",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"format\": \"Comparison Page\",\n  \"reasoning\": \"High commercial intent with product focus\",\n  \"alternative\": \"In-Depth Guide\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        544,
+        2464
+      ],
+      "id": "711212f7-e7db-43ec-83cb-d2a79563b1e3",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        512,
+        2608
+      ],
+      "id": "bf1b9aef-2cd8-4fba-b8d1-fbc00b2be550",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## GenerateAuthorityBrief",
+        "height": 336,
+        "width": 1568
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        2816
+      ],
+      "typeVersion": 1,
+      "id": "ddcdae40-22db-445a-81b3-80dc0c8d5026",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a content strategist creating an authority brief.\n\nKeyword: {{ $json.body.Keyword }}\nBrand: {{ $json.body.Brand }}\nPersona: {{ $json.body.Persona }}\nTone: {{ $json.body.Tone }}\nFormat: {{ $json.body.Format }}\nSearch Summary: {{ $json.body[\"Search Summary\"] }}\nDifferentiator: {{ $json.body.Differentiator }}\nSME Input: {{ $json.body[\"SME Input\"] }}\n\nCreate a detailed authority brief with these sections:\n1. Content Goal\n2. Target Audience\n3. Content Outline (H2/H3 structure)\n4. Key Points to Cover\n5. Sources & Research Requirements\n6. Success Metrics\n\nOutput in Markdown format.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        288,
+        2848
+      ],
+      "id": "ba248916-52d8-42bb-9996-5a570cab878f",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-5-nano"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        272,
+        3024
+      ],
+      "id": "bd78f8db-185f-491c-8288-d96ec8ca64fc",
+      "name": "OpenAI Chat Model4",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "GenerateAuthorityBrief",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -48,
+        2880
+      ],
+      "id": "5b1e2d68-b94c-4d22-99bc-2a7ba1196ec6",
+      "name": "GenerateAuthorityBrief",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1024,
+        2864
+      ],
+      "id": "5c791795-d3c4-4ec8-afac-7950162a31ff",
+      "name": "Respond to GenerateAuthorityBrief"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through all incoming items\nreturn items.map(item => {\n  return {\n    json: {\n      status: \"success\",\n      // Assigning the variable directly allows JS to handle\n      // newlines and special characters automatically\n      brief_text: item.json.output\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        2864
+      ],
+      "id": "4115a6e1-059f-4b11-b6bb-6810c0fa7167",
+      "name": "Code in JavaScript1"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "UpdateBriefAndStatus": [
+      {
+        "json": {
+          "headers": {
+            "host": "vitcornu.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36",
+            "content-length": "11",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "103.151.43.98",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "PK",
+            "cf-ray": "9cfd11a7f6dcc8b5-SIN",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "origin": "http://localhost:5173",
+            "referer": "http://localhost:5173/brief",
+            "sec-ch-ua": "\"Not(A:Brand\";v=\"8\", \"Chromium\";v=\"144\", \"Google Chrome\";v=\"144\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-api-key": "your_api_key_here",
+            "x-forwarded-for": "103.151.43.98, 172.69.176.86",
+            "x-forwarded-host": "vitcornu.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-c65d8f959-hb5rg",
+            "x-is-trusted": "yes",
+            "x-real-ip": "103.151.43.98"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "id": "17"
+          },
+          "webhookUrl": "https://vitcornu.app.n8n.cloud/webhook/UpdateBriefAndStatus",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
   "connections": {
     "Get row(s) in sheet": {
       "main": [
@@ -1512,6 +1841,116 @@
           }
         ]
       ]
+    },
+    "BriefRecommendation": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Respond to BriefRecommendation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenerateAuthorityBrief": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Respond to GenerateAuthorityBrief",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -1520,7 +1959,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "7c185a87-6a9f-412f-ab2e-6e4a58a53d72",
+  "versionId": "fbbcfd2f-24e7-47dc-822b-9a8bf74163b7",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "b17952fdda23ea95a35573e60f9e1f79c4cf3d049dcd678b8e5f264230f42dae"
