@@ -250,21 +250,23 @@ class ApiService {
         const response = await this.request(url)
 
         // Transform the data to frontend format
-        // The new webhook returns fields like ID, Title, Target_Brand, Status
-        const items = (Array.isArray(response) ? response : [response]).map(row => ({
-            id: row.ID || row.id,
-            title: row.Title || row.title,
-            brand: row.Target_Brand || row.brand || row.brand_name,
-            pave_scores: {
-                P: parseInt(row.P_Score || row.p_score) || 0,
-                A: parseInt(row.A_Score || row.a_score) || 0,
-                V: parseInt(row.V_Score || row.v_score) || 0,
-                E: parseInt(row.E_Score || row.e_score) || 0
-            },
-            total_score: parseInt(row.Total_Score || row.total_score) || 0,
-            status: row.Status || row.status,
-            created_date: row.Created_Date || row.created_date || ''
-        }))
+        // The webhook returns fields like ID, Title, Target_Brand, Status,
+        // PAVE_Score_P, PAVE_Score_A, PAVE_Score_V, PAVE_Score_E
+        const items = (Array.isArray(response) ? response : [response]).map(row => {
+            const P = parseInt(row.PAVE_Score_P || row.P_Score || row.p_score) || 0
+            const A = parseInt(row.PAVE_Score_A || row.A_Score || row.a_score) || 0
+            const V = parseInt(row.PAVE_Score_V || row.V_Score || row.v_score) || 0
+            const E = parseInt(row.PAVE_Score_E || row.E_Score || row.e_score) || 0
+            return {
+                id: row.ID || row.id,
+                title: row.Title || row.title,
+                brand: row.Target_Brand || row.brand || row.brand_name,
+                pave_scores: { P, A, V, E },
+                total_score: parseInt(row.Total_Score || row.total_score) || (P + A + V + E),
+                status: row.Status || row.status,
+                created_date: row.Created_Date || row.created_date || ''
+            }
+        })
 
         return { items, total: items.length }
     }
