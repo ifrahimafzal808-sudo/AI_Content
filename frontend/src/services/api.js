@@ -116,19 +116,61 @@ class ApiService {
             ...options.headers
         }
 
+        // Default timeout: 10 minutes (ProduceContent can take 4+ min)
+        const timeout = options.timeout || 600000
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), timeout)
+
+        // Remove non-fetch options before spreading
+        const { timeout: _t, ...fetchOptions } = options
+
         try {
             const response = await fetch(url, {
-                ...options,
-                headers
+                ...fetchOptions,
+                headers,
+                signal: controller.signal
             })
 
+            clearTimeout(timeoutId)
+
             if (!response.ok) {
-                const error = await response.json()
-                throw new Error(error.message || 'API request failed')
+                // Handle non-JSON error bodies (e.g. Cloudflare 524 HTML page)
+                let errorMessage = `API request failed (HTTP ${response.status})`
+                try {
+                    const error = await response.json()
+                    errorMessage = error.message || errorMessage
+                } catch (_) {
+                    // Body isn't JSON — use status-based message
+                }
+                const err = new Error(errorMessage)
+                err.isHttpError = true
+                err.status = response.status
+                throw err
             }
 
-            return await response.json()
+            // Read body as text first, then parse — handles empty/truncated bodies
+            const text = await response.text()
+            if (!text || text.trim() === '') {
+                const err = new Error('Server returned an empty response')
+                err.isEmptyResponse = true
+                throw err
+            }
+
+            try {
+                return JSON.parse(text)
+            } catch (_) {
+                console.warn('Response body is not valid JSON:', text.substring(0, 200))
+                const err = new Error('Server returned invalid JSON')
+                err.isParseError = true
+                throw err
+            }
         } catch (error) {
+            clearTimeout(timeoutId)
+            if (error.name === 'AbortError') {
+                const err = new Error('Request timed out — the server took too long to respond.')
+                err.isTimeout = true
+                throw err
+            }
             console.error('API Error:', error)
             throw error
         }
@@ -264,7 +306,10 @@ class ApiService {
                 pave_scores: { P, A, V, E },
                 total_score: parseInt(row.Total_Score || row.total_score) || (P + A + V + E),
                 status: row.Status || row.status,
-                created_date: row.Created_Date || row.created_date || ''
+                created_date: row.Created_Date || row.created_date || '',
+                master_asset_link: row.master_asset_link || row.Master_Asset_Link || '',
+                cover_image_url: row.cover_image_url || row.Cover_Image_URL || '',
+                draft_html: row.Draft_HTML_Body || row.draft_html || ''
             }
         })
 
@@ -291,7 +336,12 @@ class ApiService {
             brand: item.Target_Brand,
             status: item.Status,
             search_summary: item.Search_Summary,
-            authority_brief: item.Authority_Brief
+            authority_brief: item.Authority_Brief,
+            final_html: item.final_html || item.Draft_HTML_Body || '',
+            draft_html: item.Draft_HTML_Body || '',
+            cover_image_url: item.cover_image_url || item.Cover_Image_URL || '',
+            image_prompt: item.image_prompt || item.Image_Prompt || '',
+            master_asset_link: item.master_asset_link || item.Master_Asset_Link || ''
         }
     }
 
@@ -354,20 +404,81 @@ class ApiService {
     }
 
     // ----- Production Endpoints -----
+    // Helper: transform raw production response into frontend shape
+    _transformProductionResult(raw, id) {
+        return {
+            status: raw.status || 'success',
+            id: raw.id || id,
+            final_html: raw.final_html || raw.Draft_HTML_Body || '',
+            draft_html: raw.Draft_HTML_Body || '',
+            cover_image_url: raw.cover_image_url || raw.Cover_Image_URL || '',
+            image_prompt: raw.image_prompt || raw.Image_Prompt || '',
+            master_asset_link: raw.master_asset_link || raw.Master_Asset_Link || ''
+        }
+    }
+
     async produceContent(id) {
         if (USE_MOCK) {
-            await delay(5000) // Simulate long content generation
+            await delay(8000) // Simulate content generation
             return {
-                success: true,
-                asset_url: 'https://example.com/generated-article.html',
-                generation_time: '2m 14s'
+                status: 'success',
+                id: id,
+                final_html: '<h1>Sample Produced Article</h1><p>This is a mock preview of the generated article content.</p>',
+                draft_html: '<h1>Sample Produced Article</h1><p>This is a mock draft.</p>',
+                cover_image_url: '',
+                image_prompt: '',
+                master_asset_link: 'https://example.com/sharepoint/article.html'
             }
         }
-        // ⚠️ NOT IMPLEMENTED YET IN N8N
-        return this.request('/webhook/ProduceContent', {
-            method: 'POST',
-            body: JSON.stringify({ item_id: id })
-        })
+
+        // 1. Try direct POST
+        try {
+            const response = await this.request('/webhook/ProduceContent', {
+                method: 'POST',
+                body: JSON.stringify({ item_id: id }),
+                timeout: 600000 // 10 min
+            })
+            console.log('ProduceContent raw response:', response)
+            const raw = Array.isArray(response) ? response[0] : response
+            return this._transformProductionResult(raw, id)
+        } catch (err) {
+            // Only retry via polling for network/Cloudflare issues
+            const isRetryable = err.isTimeout || err.isEmptyResponse ||
+                err.isParseError || (err.isHttpError && err.status >= 500)
+            if (!isRetryable) throw err
+
+            console.log('ProduceContent failed with retryable error. Polling for result...', err.message)
+        }
+
+        // 2. Polling fallback — n8n workflow likely completed, Cloudflare killed the response
+        const POLL_INTERVAL = 15000
+        const MAX_POLL_TIME = 600000
+        const startTime = Date.now()
+
+        while (Date.now() - startTime < MAX_POLL_TIME) {
+            await delay(POLL_INTERVAL)
+            try {
+                // Cache-busting: append timestamp so browser doesn't use 304 cache
+                const response = await this.request(`/webhook/FetchItemDetails?id=${id}&_t=${Date.now()}`)
+                const item = Array.isArray(response) ? response[0] : response
+                const html = item.final_html || item.Draft_HTML_Body || ''
+                if (html.trim() !== '') {
+                    return {
+                        status: 'success',
+                        id: id,
+                        final_html: html,
+                        draft_html: item.Draft_HTML_Body || '',
+                        cover_image_url: item.cover_image_url || item.Cover_Image_URL || '',
+                        image_prompt: item.image_prompt || item.Image_Prompt || '',
+                        master_asset_link: item.master_asset_link || item.Master_Asset_Link || ''
+                    }
+                }
+            } catch (pollErr) {
+                console.warn('Poll error (retrying):', pollErr.message)
+            }
+        }
+
+        throw new Error('Content production timed out. The n8n workflow may still be running — try refreshing in a minute.')
     }
 
     async publishContent(id) {

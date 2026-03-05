@@ -1059,3 +1059,66 @@ tr:hover td {
     display: none;
   }
 }
+
+/* ---------- HTML Preview (Produce Content) ---------- */
+.preview-tabs {
+  display: flex;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.preview-tab {
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid transparent;
+}
+
+.preview-tab:hover {
+  color: var(--text-primary);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.preview-tab.active {
+  color: var(--color-primary-light);
+  border-bottom-color: var(--color-primary);
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.html-preview-container {
+  width: 100%;
+  min-height: 500px;
+  max-height: 700px;
+  overflow: hidden;
+}
+
+.html-preview-iframe {
+  width: 100%;
+  height: 700px;
+  border: none;
+  background: #1e293b;
+}
+
+.html-source-container {
+  max-height: 600px;
+  overflow: auto;
+  background: var(--bg-primary);
+}
+
+.html-source-code {
+  padding: var(--space-4);
+  margin: 0;
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 1.6;
+}
+

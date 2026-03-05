@@ -1,0 +1,4731 @@
+{
+  "name": "AI Content",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "ID",
+              "lookupValue": "=2"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        432,
+        -240
+      ],
+      "id": "77ba1854-1362-44d7-96b4-e149f5f6c454",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Approved for Briefing"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        112
+      ],
+      "id": "1b99701e-3612-44e2-8dc8-2c6438a3bff6",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "FetchBacklogIdeas",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        112
+      ],
+      "id": "e87cdcdb-df23-4b48-b73d-29feaa2e6e27",
+      "name": "FetchBacklogIdeas",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "path": "FetchItemDetails",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        -80
+      ],
+      "id": "7696c62a-78bd-4da5-9f47-67956bed66ce",
+      "name": "FetchItemDetails",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $json.query.Keyword }}",
+            "Target_Brand": "={{ $json.query.Brand }}",
+            "Status": "={{ $json.pave_status }}",
+            "Search_Summary": "={{ $json.query.search_summary }}",
+            "AI_Reasoning": "={{ $json.query.reasoning }}",
+            "Is_Outline_Approved": "false"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target_Brand",
+              "displayName": "Target_Brand",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approved_Outline",
+              "displayName": "Approved_Outline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Is_Outline_Approved",
+              "displayName": "Is_Outline_Approved",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Search_Summary",
+              "displayName": "Search_Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AI_Reasoning",
+              "displayName": "AI_Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Authority_Brief",
+              "displayName": "Authority_Brief",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Draft_HTML_Body",
+              "displayName": "Draft_HTML_Body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image_Prompt",
+              "displayName": "Image_Prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Alt_Text_Suggested",
+              "displayName": "Alt_Text_Suggested",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover_Image_URL",
+              "displayName": "Cover_Image_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Master_Asset_Link",
+              "displayName": "Master_Asset_Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last_ErrorLast_Error",
+              "displayName": "Last_ErrorLast_Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        800,
+        320
+      ],
+      "id": "a11a08bf-b468-44ac-a4b7-6a4ee2d1f9a2",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "SaveScoredIdea",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        320
+      ],
+      "id": "93bc48dc-4836-4b0e-87e2-7fcebde362e7",
+      "name": "SaveScoredIdea",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "66f2a180-6311-44ab-a4a6-b3aedbf9665c",
+              "leftValue": "={{ $json.query.scores_p.toNumber() + $json.query.scores_a.toNumber() + $json.query.scores_v.toNumber() + $json.query.scores_e.toNumber() }}",
+              "rightValue": 18,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        192,
+        320
+      ],
+      "id": "daca2187-a917-48b7-af19-846f3e83bc35",
+      "name": "If",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items\nfor (const item of $input.all()) {\n  \n  // 1. Get the data\n  // Note: Based on your screenshot, the data is inside a \"query\" object.\n  const inputData = item.json.query; \n\n  // 2. Parse Scores \n  // We use parseInt() because webhook query parameters often come in as strings (e.g., \"5\")\n  // We use ( || 0 ) as a fallback in case a score is missing.\n  const scoreP = parseInt(inputData.scores_p || 0);\n  const scoreA = parseInt(inputData.scores_a || 0);\n  const scoreV = parseInt(inputData.scores_v || 0);\n  const scoreE = parseInt(inputData.scores_e || 0);\n\n  // 3. Calculate Total Score (Flowchart Step B)\n  const totalScore = scoreP + scoreA + scoreV + scoreE;\n\n  // 4. Determine Status Logic (Flowchart Steps C, D, E)\n  let status = 'PAVE Scored'; // Default status (No branch)\n  \n  if (totalScore >= 18) {\n    status = 'Approved for Briefing'; // (Yes branch)\n  }\n\n  // 5. Append these new values to the item\n  // This makes them available for the SharePoint nodes later\n  item.json.total_score = totalScore;\n  item.json.pave_status = status;\n}\n\n// Return the items with the new fields added\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        320
+      ],
+      "id": "ace67932-7990-4322-a616-4f8311627871",
+      "name": "Calculate pave score"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1024,
+        320
+      ],
+      "id": "bd1f8bee-143c-4ec4-949f-1c5d18b2b53a",
+      "name": "Respond to SaveScoredIdea"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        384,
+        112
+      ],
+      "id": "56750bc1-5601-4c55-bc23-377c004a8538",
+      "name": "Respond to FetchBacklogIdeas"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        624,
+        -80
+      ],
+      "id": "45f74ad9-6c3d-4597-88da-ee9efc3031d5",
+      "name": "Respond to FetchItemDetails"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ",
+          "mode": "list",
+          "cachedResultName": "Brand_Configuration",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        752
+      ],
+      "id": "379f316f-cfbd-4b25-9e70-0a38aeea47c6",
+      "name": "Get row(s) in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "path": "GetActiveBrands",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        752
+      ],
+      "id": "47169986-8928-44be-96c4-4687675d470d",
+      "name": "GetActiveBrands",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1280,
+        752
+      ],
+      "id": "8d9e3878-d7cb-4d07-8ead-86900280faf5",
+      "name": "Respond to GetActiveBrands"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Map over all input items to extract the 'Brand' field\nconst allBrands = items.map(item => item.json.Brand);\n\n// 2. Clean the data:\n// - Filter out nulls/undefined\n// - Trim whitespace\n// - Remove empty strings\n// - Use 'Set' to remove duplicates\nconst uniqueBrands = [...new Set(\n  allBrands\n    .filter(brand => brand) // Remove nulls\n    .map(brand => brand.toString().trim()) // Ensure string and remove whitespace\n    .filter(brand => brand !== \"\") // Remove resulting empty strings\n)];\n\n// 3. Return the result as a single list (Array)\nreturn [\n  {\n    json: {\n      brand_list: uniqueBrands\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        752
+      ],
+      "id": "06a719a5-1345-4193-9a25-da3df78b8761",
+      "name": "get all brands in a list",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "path": "GetBrandDetails",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        1056
+      ],
+      "id": "520b6116-8d8a-4002-be1e-8344f27e4a71",
+      "name": "GetBrandDetails",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72",
+      "notesInFlow": true,
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ",
+          "mode": "list",
+          "cachedResultName": "Brand_Configuration",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Brand",
+              "lookupValue": "={{ $json.query.brand_name }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        1056
+      ],
+      "id": "546c7143-b8e8-4f7c-aa78-cdaeab726feb",
+      "name": "get_brand_details",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "UpdateBriefAndStatus",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        1248
+      ],
+      "id": "c1283938-8779-483f-bc7b-d46908b4b31b",
+      "name": "UpdateBriefAndStatus",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72",
+      "notesInFlow": true,
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        720,
+        1248
+      ],
+      "id": "1f90c97f-652b-44d3-8f1f-750d45ba9276",
+      "name": "Respond to UpdateBriefAndStatus"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $json.query.id || $json.body.id }}",
+            "Authority_Brief": "={{ $json.query.brief_text || $json.body.brief_text }}",
+            "Status": "Briefed"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target_Brand",
+              "displayName": "Target_Brand",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approved_Outline",
+              "displayName": "Approved_Outline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Is_Outline_Approved",
+              "displayName": "Is_Outline_Approved",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Search_Summary",
+              "displayName": "Search_Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AI_Reasoning",
+              "displayName": "AI_Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Authority_Brief",
+              "displayName": "Authority_Brief",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Draft_HTML_Body",
+              "displayName": "Draft_HTML_Body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image_Prompt",
+              "displayName": "Image_Prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Alt_Text_Suggested",
+              "displayName": "Alt_Text_Suggested",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover_Image_URL",
+              "displayName": "Cover_Image_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Master_Asset_Link",
+              "displayName": "Master_Asset_Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last_ErrorLast_Error",
+              "displayName": "Last_ErrorLast_Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        528,
+        1248
+      ],
+      "id": "46b52352-7654-4910-90b5-5cca70817cae",
+      "name": "update brief text",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "UpdateContentStatus",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        1440
+      ],
+      "id": "f3748406-cef0-4dcc-a843-5998d9997f84",
+      "name": "UpdateContentStatus",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72",
+      "notesInFlow": true,
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        592,
+        1440
+      ],
+      "id": "96a9ceca-c79b-441c-9ce1-635163a39516",
+      "name": "Respond to UpdateContentStatus"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $json.query.id }}",
+            "Authority_Brief": "=",
+            "Status": "={{ $json.query.new_status }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target_Brand",
+              "displayName": "Target_Brand",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Approved_Outline",
+              "displayName": "Approved_Outline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Is_Outline_Approved",
+              "displayName": "Is_Outline_Approved",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Search_Summary",
+              "displayName": "Search_Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AI_Reasoning",
+              "displayName": "AI_Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Authority_Brief",
+              "displayName": "Authority_Brief",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Draft_HTML_Body",
+              "displayName": "Draft_HTML_Body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image_Prompt",
+              "displayName": "Image_Prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Alt_Text_Suggested",
+              "displayName": "Alt_Text_Suggested",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover_Image_URL",
+              "displayName": "Cover_Image_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Master_Asset_Link",
+              "displayName": "Master_Asset_Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last_ErrorLast_Error",
+              "displayName": "Last_ErrorLast_Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        400,
+        1440
+      ],
+      "id": "395118a8-44a4-48da-b05e-486125a2bd5c",
+      "name": "update status text",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## AnalyzeKeyword_Backend",
+        "height": 544,
+        "width": 1584
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -112,
+        1648
+      ],
+      "typeVersion": 1,
+      "id": "6af1af9e-15df-4cd8-8065-af28180303d5",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "AnalyzeKeyword_Backend",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -48,
+        1712
+      ],
+      "id": "e120e656-efd5-4d01-81e5-5d64a0ecaefb",
+      "name": "AnalyzeKeyword_Backend",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1280,
+        1712
+      ],
+      "id": "5ccf26f0-11b3-455e-a153-ddabb4ed912a",
+      "name": "Respond to AnalyzeKeyword_Backend"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=[PERSONA]\nYou are Vera Sterling, Senior SEO Strategist with 12+ years managing \norganic search for Fortune 500 and high-growth companies. You transform \nSERP data into battle-tested competitive strategies.\n{{ $now }}\n\n[ACTION]\nSearch the keyword: {{ $json.query.Keyword || $json.body.Brand_Name }} and analyze the top 5 \norganic ranking websites. Execute this workflow:\n\n1. IDENTIFY: Capture the top 5 organic results, their URLs, titles, \n   and meta descriptions\n2. ANALYZE: For each result, summarize content type, apparent authority \n   signals, and key structural elements\n3. SYNTHESIZE: Compare findings and extract the dominant patterns\n\n[VOICE]\nConcise, analytical, data-focused. No fluff. Present facts and patterns \nonly.\n\n[EXPECTATION]\nOUTPUT FORMAT: Search Summary Only\n\nStructure your response exactly as follows:\n\n---\n**Keyword:** [exact keyword searched]\n**Date:** [current date]\n**Search Intent:** [Informational/Commercial/Transactional/Navigational]\n\n**Top 5 Results:**\n\n| # | Domain | Title | Content Type | Key Strength |\n|---|--------|-------|--------------|--------------|\n| 1 | [domain] | [title] | [type] | [1-line strength] |\n| 2 | [domain] | [title] | [type] | [1-line strength] |\n| 3 | [domain] | [title] | [type] | [1-line strength] |\n| 4 | [domain] | [title] | [type] | [1-line strength] |\n| 5 | [domain] | [title] | [type] | [1-line strength] |\n\n**Pattern Analysis:**\n- Dominant content format: [e.g., listicles, product reviews, guides]\n- Common authority signals: [e.g., brand recognition, backlink profile]\n- SERP features present: [e.g., featured snippet, PAA, images]\n- Content gap opportunity: [1-sentence insight]\n\n**Confidence:** [High/Medium/Low]\n"
+            }
+          ]
+        },
+        "builtInTools": {
+          "webSearch": {
+            "searchContextSize": "high"
+          }
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        1712
+      ],
+      "id": "cc56a326-5a01-4dba-9bcf-4dc0da494490",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an SEO strategist. Return ONLY valid JSON (no markdown).\n\nBrand: {{ $('AnalyzeKeyword_Backend').item.json.query.Brand_Name }}\n---\n\nPersona: {{ $json.Target_Persona }}\n---\n\nProduct context: {{ $json.Product_Context }}\n---\n\nSearch summary: {{ $('Message a model').item.json.output[0].content[0].text }}\n\nRules:\n- Return ONLY valid JSON. No markdown, no extra text.\n- Each reasoning field must be 15 words or fewer.\n- volume_score must always be 0.\n- volume_reasoning must always be exactly \"Manual check required\".\n- Scores (profitability_score, authority_score, effort_score) must be integers between 1 and 5.\n- Ensure results are deterministic, consistent, and reproducible for identical inputs.\n\nOutput JSON:\n{\n\"profitability_score\": 1-5,\n\"profitability_reasoning\": \"...\",\n\"authority_score\": 1-5,\n\"authority_reasoning\": \"...\",\n\"volume_score\": 0,\n\"volume_reasoning\": \"Manual check required\",\n\"effort_score\": 1-5,\n\"effort_reasoning\": \"...\",\n\"ai_reasoning\": \"also give you reasoning.\"\n}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        720,
+        1712
+      ],
+      "id": "eefe869c-f728-4931-8a20-0625c1db4b3f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        688,
+        1888
+      ],
+      "id": "fddd9879-1194-4c35-b8be-36ba9157f834",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ",
+          "mode": "list",
+          "cachedResultName": "Brand_Configuration",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PRjLWyCAEH9nVvNgcAbeDekD6egIUV1aLmLCJ9dPsSQ/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Brand",
+              "lookupValue": "={{ $('AnalyzeKeyword_Backend').item.json.query.Brand_Name }}"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        480,
+        1696
+      ],
+      "id": "4e0c82a9-fb3d-4f88-8ddf-788db1744197",
+      "name": "Get row(s) in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\"profitability_score\": 5,\n\"profitability_reasoning\": \"...\",\n\"authority_score\": 5,\n\"authority_reasoning\": \"...\",\n\"volume_score\": 0,\n\"volume_reasoning\": \"Manual check required\",\n\"effort_score\": 5,\n\"effort_reasoning\": \"...\",\n\"ai_reasoning\":\"...\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        896,
+        1888
+      ],
+      "id": "04fb3af1-7311-4185-963a-1c92cb7327da",
+      "name": "Structured Output Parser",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        992,
+        2016
+      ],
+      "id": "e55b52d3-e282-446f-8173-4a3758c2a0a7",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through items (in case there are multiple)\nreturn items.map(item => {\n  \n  // 1. Get the data from the Current Node (The scores)\n  // We look for 'output' because your snippet showed $json.output.score...\n  const inputData = item.json.output || item.json;\n\n  // 2. Get the Search Summary from the \"Message a model\" node\n  // We use .first() to grab the result. If you have multiple items, you might need to match indices.\n  let searchSummary = \"\";\n  try {\n    const modelNode = $('Message a model').first(); \n    searchSummary = modelNode.json.output[0].content[0].text;\n  } catch (error) {\n    searchSummary = \"Error retrieving summary: \" + error.message;\n  }\n\n  // 3. Create the clean object\n  // JavaScript will automatically handle the newlines and quotes in search_summary here\n  const cleanData = {\n    profitability_score: inputData.profitability_score,\n    profitability_reasoning: inputData.profitability_reasoning,\n    authority_score: inputData.authority_score,\n    authority_reasoning: inputData.authority_reasoning,\n    volume_score: inputData.volume_score,\n    volume_reasoning: inputData.volume_reasoning,\n    effort_score: inputData.effort_score,\n    effort_reasoning: inputData.effort_reasoning,\n    search_summary: searchSummary,\n    ai_reasoning: inputData.ai_reasoning\n  };\n\n  // 4. Return the data\n  return {\n    json: cleanData\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        1712
+      ],
+      "id": "d35e2dd7-682a-48c2-a076-39209702c2b2",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "content": "## Brief Recommendation",
+        "height": 480,
+        "width": 1568
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        2256
+      ],
+      "typeVersion": 1,
+      "id": "8b2a6f2f-e9f0-4f97-b65d-d1db1da74549",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        976,
+        2320
+      ],
+      "id": "43fbf0b6-b939-48d9-acc2-e22171dbdbb7",
+      "name": "Respond to BriefRecommendation"
+    },
+    {
+      "parameters": {
+        "path": "BriefRecommendation",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -48,
+        2320
+      ],
+      "id": "6395abca-77a5-4d30-85b1-4dc62e79563f",
+      "name": "BriefRecommendation",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "url": "https://vitcornu.app.n8n.cloud/webhook/FetchItemDetails",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "id",
+              "value": "={{ $json.query.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        176,
+        2320
+      ],
+      "id": "84f15108-9e19-4600-b509-671159a40cb9",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Analyze this keyword and search context:\nKeyword: \"{{ $json.Title }}\"\nSearch Summary: \"{{ $json.Search_Summary }}\"\n\nBased on search intent, recommend ONE content format:\n1. Comparison Page (product/service comparisons)\n2. In-Depth Guide (educational, how-to)\n3. Listicle (top 10, best of)\n4. Landing Page (tool/resource)\n5. Research Report (data-driven)\n\nReference Return JSON:\n{\n  \"format\": \"Comparison Page\",\n  \"reasoning\": \"High commercial intent with product focus\",\n  \"alternative\": \"In-Depth Guide\"\n}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        416,
+        2272
+      ],
+      "id": "7ef7227d-62b8-4423-8912-a4a75436f095",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-5-nano"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        368,
+        2480
+      ],
+      "id": "322d19f9-7628-45e1-ad9f-107ac05109b8",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"format\": \"Comparison Page\",\n  \"reasoning\": \"High commercial intent with product focus\",\n  \"alternative\": \"In-Depth Guide\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        544,
+        2464
+      ],
+      "id": "711212f7-e7db-43ec-83cb-d2a79563b1e3",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        512,
+        2608
+      ],
+      "id": "bf1b9aef-2cd8-4fba-b8d1-fbc00b2be550",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## GenerateAuthorityBrief",
+        "height": 336,
+        "width": 1568
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        112,
+        2816
+      ],
+      "typeVersion": 1,
+      "id": "ddcdae40-22db-445a-81b3-80dc0c8d5026",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an expert content strategist specializing in SEO-driven comparison pages and authority content. Your task is to produce a comprehensive, publication-ready authority brief.\n\n## Inputs\n\n- **Keyword:** {{ $json.body.Keyword }}\n- **Brand:** {{ $json.body.Brand }}\n- **Persona:** {{ $json.body.Persona }}\n- **Tone:** {{ $json.body.Tone }}\n- **Format:** {{ $json.body.Format }}\n- **Search Summary:** {{ $json.body[\"Search Summary\"] }}\n- **Differentiator:** {{ $json.body.Differentiator }}\n- **SME Input:** {{ $json.body[\"SME Input\"] }}\n\n## Instructions\n\nUsing the inputs above, generate a detailed authority brief in Markdown. Follow the structure below exactly. Every section must be tailored specifically to the brand, keyword, and audience — avoid generic filler.\n\n---\n\n# Authority Brief: [Keyword] \n\n**Format:** [Format]\n**Keyword:** [Keyword]\n**Search Summary:** [Search Summary]\n**Date:** [Today's Date]\n\n---\n\n## 1. Content Goal\n\nWrite 4–5 bullet points that define:\n- The primary SEO and business objective for this page\n- The funnel stage(s) being targeted (ToFu, MoFu, BoFu)\n- The specific content gap or audience need being addressed\n- How this content supports conversions or brand trust\n- A clear, single-sentence north star statement for the page\n\n---\n\n## 2. Target Audience\n\nDefine 4–5 distinct audience segments. For each, specify:\n- Who they are (role, context, behavior)\n- Their primary pain point or decision driver\n- What they need from this content to convert or trust the brand\n\n---\n\n## 3. Content Outline (H2/H3 Structure)\n\nProduce a full page outline using H2 and H3 headings. Requirements:\n- At least 8 H2 sections\n- Each H2 should have 2–5 supporting H3s where appropriate\n- Headings must be keyword-intentional, not generic\n- Structure must serve both the reader journey and SEO snippet opportunities\n- Clearly mark where the differentiator content lives within the outline\n\n---\n\n## 4. Key Points to Cover\n\nOrganize into thematic clusters (e.g., Product Coverage, Comparative Depth, Performance, Maintenance, Value). For each cluster:\n- List the specific claims, data points, or arguments to make\n- Note any SME-sourced guidance to embed\n- Flag any content designed to target featured snippets or rich results\n\n---\n\n## 5. Sources & Research Requirements\n\nProvide:\n- A prioritized list of external benchmarks, review outlets, or industry sources to reference\n- The primary brand materials needed (specs, warranty docs, product pages)\n- A brief research methodology: how data will be gathered, verified, and attributed\n- Format requirements: tables, downloadables, structured data, accessibility notes\n\n---\n\n## 6. Success Metrics\n\nDefine measurable KPIs across four categories:\n- **SEO & Visibility** (rankings, CTR, snippet capture, structured data)\n- **Engagement** (time on page, scroll depth, bounce rate)\n- **Conversion** (product page visits, add-to-cart, lead capture)\n- **Brand Authority** (backlinks, sentiment, perceived credibility)\n\n---\n\n## Editorial Notes\n\nClose with 3–5 strategic notes for the writer or editor covering:\n- Tone and balance between brand promotion and objective guidance\n- Any mandatory visual or interactive elements\n- Pitfalls to avoid (e.g., over-optimizing, thin specs, missing maintenance depth)\n\n---\n\n## Output Rules\n\n- Output the authority brief and nothing else.\n- Do not add closing remarks, offers, or suggestions after the brief (e.g., \"If you'd like, I can also…\").\n- Do not ask follow-up questions or propose next steps.\n- Do not include meta-commentary about the brief itself.\n- End your response immediately after the final Editorial Note.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        496,
+        2848
+      ],
+      "id": "ba248916-52d8-42bb-9996-5a570cab878f",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-5-nano"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        3024
+      ],
+      "id": "bd78f8db-185f-491c-8288-d96ec8ca64fc",
+      "name": "OpenAI Chat Model4",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "GenerateAuthorityBrief",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        2880
+      ],
+      "id": "5b1e2d68-b94c-4d22-99bc-2a7ba1196ec6",
+      "name": "GenerateAuthorityBrief",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1232,
+        2864
+      ],
+      "id": "5c791795-d3c4-4ec8-afac-7950162a31ff",
+      "name": "Respond to GenerateAuthorityBrief"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through all incoming items\nreturn items.map(item => {\n  return {\n    json: {\n      status: \"success\",\n      // Assigning the variable directly allows JS to handle\n      // newlines and special characters automatically\n      brief_text: item.json.output\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        912,
+        2864
+      ],
+      "id": "4115a6e1-059f-4b11-b6bb-6810c0fa7167",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "1",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        800,
+        2016
+      ],
+      "id": "efab8251-97df-4d87-bf38-073545c1a977",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Topic: {{  $json.body.title }}\nBackground Research: {{  $json.body.search_summary }}\nAuthority Brief: {{  $json.body.authority_brief }}\n\nGenerate a comprehensive investigative article (2000-2500 words).",
+        "options": {
+          "systemMessage": "=You are an investigative reporter for {{  $json.body.brand_name }}.\nPersona: {{  $json.body.brand_persona }}\nTone: {{  $json.body.brand_tone }}\n\nMANDATORY:\n- Investigate → Draft → Audit\n- Two-source rule for factual claims\n- Append disclaimer block: {{brand_disclaimer_block || \"\"}}\n\nHTML requirements:\n- Output HTML BODY only (h1, h2, p, ul, blockquote)\n- NO: <table>, float, iframe, background-color\n\nAt the end include:\nAUDIT TRAIL: List major claims and 2 sources per claim."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        288,
+        3232
+      ],
+      "id": "5ccda6b5-578f-405c-954a-4e8821e0f3ca",
+      "name": "AI Agent3"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-5-nano"
+        },
+        "builtInTools": {
+          "webSearch": {
+            "searchContextSize": "medium"
+          }
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        272,
+        3408
+      ],
+      "id": "bb001742-4345-4dd7-a20b-500c5bd98e60",
+      "name": "OpenAI Chat Model5",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through all incoming items\nreturn items.map(item => {\n  return {\n    json: {\n      status: \"success\",\n      // Assigning the variable directly allows JS to handle\n      // newlines and special characters automatically\n      Draft_HTML_Body: $('AI Agent3').first().json.output,\n      final_html: $input.first().json.output,\n      image_prompt: $('AI Agent5').first().json.output\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2160,
+        3248
+      ],
+      "id": "7c522a91-4e19-4cb2-8bc1-5484cdcd0701",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "={{ $json.query.status }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -608,
+        2832
+      ],
+      "id": "1d8c6d19-e5dc-40a3-b268-87d87fbecdd9",
+      "name": "Get row(s) in sheet4",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "path": "FetchBriefedItem",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1008,
+        3024
+      ],
+      "id": "fbfbd1bb-7e08-48dc-8339-885d284a5006",
+      "name": "FetchItembyStatus",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -384,
+        3024
+      ],
+      "id": "7c8d18c4-f1a8-4d6d-8683-fa924267fe02",
+      "name": "Respond to FetchItembyStatus"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v90i2hznPAkvanrIxRt8M_IgacdU8yGva5N0Rqvj508/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -720,
+        3616
+      ],
+      "id": "8a2e469f-6a3b-4807-ab25-c05b669a4cb4",
+      "name": "Get row(s) in sheet5",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3w0EQs5xsaqrg43A",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "path": "FetchAllItems",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -880,
+        3344
+      ],
+      "id": "927c942d-0b3e-489e-bb1e-f7e5f7ec0f76",
+      "name": "FetchAllItems",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -304,
+        3344
+      ],
+      "id": "e236360c-1922-450b-b448-36e94a05d126",
+      "name": "Respond to FetchAllItems"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Topic: {{  $json.body.title }}\nBackground Research: {{  $json.body.search_summary }}\nAuthority Brief: {{  $json.body.authority_brief }}\n\nGenerate a comprehensive investigative article (2000-2500 words).",
+        "options": {
+          "systemMessage": "=You are an investigative reporter for {{  $json.body.brand_name }}.\nPersona: {{  $json.body.brand_persona }}\nTone: {{  $json.body.brand_tone }}\n\nMANDATORY:\n- Investigate → Draft → Audit\n- Two-source rule for factual claims\n- Append disclaimer block: {{brand_disclaimer_block}}\n\nHTML requirements:\n- Output HTML BODY only (h1, h2, p, ul, blockquote)\n- NO: <table>, float, iframe, background-color\n\nAt the end include:\nAUDIT TRAIL: List major claims and 2 sources per claim."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        272,
+        3600
+      ],
+      "id": "f8389840-fced-43c2-a94b-c56c80c8c754",
+      "name": "AI Agent4"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-5-nano"
+        },
+        "builtInTools": {
+          "webSearch": {
+            "searchContextSize": "medium"
+          }
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        3776
+      ],
+      "id": "95901534-a120-4a73-92a3-073ad237193f",
+      "name": "OpenAI Chat Model6",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through all incoming items\nreturn items.map(item => {\n  return {\n    json: {\n      status: \"success\",\n      // Assigning the variable directly allows JS to handle\n      // newlines and special characters automatically\n      Draft_HTML_Body: item.json.output\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        3616
+      ],
+      "id": "1944e82b-2c53-4849-9894-eee8a7b58c18",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "GenerateHTMLarticle",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -64,
+        3632
+      ],
+      "id": "71277d55-18c4-4862-b81b-153a1c525ec8",
+      "name": "GenerateHTMLarticle1",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1008,
+        3616
+      ],
+      "id": "8cbba6e2-7028-4d8e-b40e-8b24e6e46b24",
+      "name": "Respond to GenerateHTMLarticle1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ProduceContent",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -64,
+        3264
+      ],
+      "id": "41671196-ddf0-4962-9c90-a99fa84b3aed",
+      "name": "ProduceContent",
+      "webhookId": "ecbfaf09-fea2-4aaf-a9d4-8857c5bf5c72"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2368,
+        3248
+      ],
+      "id": "0edc4363-ce2b-4cbc-9302-5933d6437564",
+      "name": "Respond to ProduceContent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Generate a DALL-E 3 prompt for a cover image.\nArticle title: \"{{ $('ProduceContent').item.json.body.title }}\"\nArticle topic: \"{{ $('ProduceContent').item.json.body.search_summary }}\"\nDraft_HTML_Body: {{ $json.output }}\n\nRequirements:\n- Professional, modern style\n- Relevant to content topic\n- No text in image\n- Landscape orientation\n- Clean, simple composition\n\nOutput ONLY the DALL-E prompt, nothing else.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        672,
+        3232
+      ],
+      "id": "08c5811d-e3e6-4cb3-8ab8-d4ea3d6e7d3d",
+      "name": "AI Agent5"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        640,
+        3408
+      ],
+      "id": "e367c834-33a0-4cc6-af9f-c9270012b9ef",
+      "name": "OpenAI Chat Model7",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "prompt": "={{ $json.output }}",
+        "options": {
+          "dalleQuality": "hd",
+          "size": "1792x1024",
+          "style": "natural"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        1024,
+        3248
+      ],
+      "id": "c58e7c67-3f33-4a99-aed3-2f43e9b59ac1",
+      "name": "Generate an image",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "=image_{{ $now.format('yyyy_MM_dd_HH_mm_ss') }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1zR_hmCh76xGCIh4MaY1iulrkGcSg6ccI",
+          "mode": "list",
+          "cachedResultName": "VitCornu_AI",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1zR_hmCh76xGCIh4MaY1iulrkGcSg6ccI"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1232,
+        3248
+      ],
+      "id": "618c700a-4227-4fa3-a789-a202989ee0f0",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "1Uf0SSrvDLyBYdfE",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "share",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "permissionsUi": {
+          "permissionsValues": {
+            "role": "writer",
+            "type": "anyone",
+            "allowFileDiscovery": true
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1440,
+        3248
+      ],
+      "id": "42d38da3-0aad-47dd-b3bf-79a34c047741",
+      "name": "Share file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "1Uf0SSrvDLyBYdfE",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Act as an expert HTML formatter. Your task is to process a provided body of HTML content and insert a specific image under the main heading.\n\n### Inputs:\n1.  **Image Web View Link:** {{ $('Upload file').item.json.webViewLink }}\n2.  **Existing HTML:** {{ $('AI Agent3').item.json.output }}\n\n### Instructions:\n1.  **Image Link Transformation:** Take the 'Image Web View Link' and extract the File ID. Convert it into a high-quality thumbnail URL using this specific format:\n    `https://drive.google.com/thumbnail?id=FILE_ID&sz=w1200`\n2.  **HTML Insertion:** \n    - Wrap the image in a `<figure>` tag for better semantics.\n    - Insert the following block immediately after the first `<h1>` tag in the 'Existing HTML':\n      ```html\n      <figure>\n        <img src=\"[https://drive.google.com/thumbnail?id=FILE_ID&sz=w1200](https://drive.google.com/thumbnail?id=FILE_ID&sz=w1200)\" alt=\"Snowshoes comparison — VitCornu\" style=\"max-width:100%;height:auto;display:block;margin:0.5rem auto;\">\n        <figcaption style=\"text-align:center;font-size:0.9rem;color:#666;margin-bottom:1rem;\">\n          VitCornu snowshoe comparison overview\n        </figcaption>\n      </figure>\n      ```\n3.  **Strict Formatting:** \n    - Ensure all HTML tags are properly closed and indented.\n    - DO NOT include any markdown code blocks (```html ... ```) in your output.\n    - DO NOT add any conversational text, explanations, or notes.\n    - ONLY output the final, raw HTML code.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1648,
+        3248
+      ],
+      "id": "a513fcde-8765-4691-9315-7d59f7e1016d",
+      "name": "AI Agent6"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1584,
+        3440
+      ],
+      "id": "56874e1e-d23f-4b04-8174-6c4d008a79ac",
+      "name": "OpenAI Chat Model8",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Extract the \"Title\" from the \"fields\" object of every item\nconst allBrands = items.map(item => item.json.fields.Title);\n\n// 2. Use a JavaScript Set to remove duplicates automatically\nconst uniqueBrands = [...new Set(allBrands)];\n\n// 3. Return the single object in the requested structure\nreturn [\n  {\n    json: {\n      brand_list: uniqueBrands\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        992,
+        752
+      ],
+      "id": "521db522-75b7-43af-ba40-1d6b36d3fcc6",
+      "name": "get all brands in a list1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "I want you to get all the Brands fromt the sharepoint.\nYou have the tool for that.\nAlwyas Return in the proper JSON Format\nlike this:\n\n[\n    {\n        \"brand_list\": [\n            \"VitCornu\",\n            \"Temango\"\n        ]\n    }\n]",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1696,
+        1152
+      ],
+      "id": "6e5ab29d-bca2-4932-b027-f41bad52ce55",
+      "name": "AI Agent7",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "item",
+        "site": {
+          "__rl": true,
+          "value": "vitcornucom.sharepoint.com,29c4c9e3-459c-4e07-9bf2-42e54fc0290f,197a5c9e-3221-4306-9ccb-c0025d0e2bff",
+          "mode": "list",
+          "cachedResultName": "VitCornu AI"
+        },
+        "list": {
+          "__rl": true,
+          "value": "ded2a770-4ce3-4112-b066-7f43fa13ca08",
+          "mode": "list",
+          "cachedResultName": "Brand Configuration"
+        },
+        "filter": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Filter_by_Formula', ``, 'string') }}",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "options": {},
+        "simplify": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.microsoftSharePointTool",
+      "typeVersion": 1,
+      "position": [
+        1808,
+        1360
+      ],
+      "id": "26a3fbea-04be-42e1-8acc-30006c0bd619",
+      "name": "Get many items in Microsoft SharePoint",
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "smqqQSQOy0VQFfun",
+          "name": "Microsoft SharePoint account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-nano"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1632,
+        1360
+      ],
+      "id": "ca3c54de-46c4-4771-abee-7722370f215e",
+      "name": "OpenAI Chat Model9",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n    {\n        \"brand_list\": [\n            \"VitCornu\",\n            \"Temango\"\n        ]\n    }\n]",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1936,
+        1360
+      ],
+      "id": "bc95a7a3-e724-4040-98d5-feb011899a19",
+      "name": "Structured Output Parser2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-nano"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1984,
+        1536
+      ],
+      "id": "7fad1fa3-9921-4b4f-86f4-ce6f34c98871",
+      "name": "OpenAI Chat Model10",
+      "credentials": {
+        "openAiApi": {
+          "id": "yD0HVzicUI1vL7dV",
+          "name": "OpenAi account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "item",
+        "site": {
+          "__rl": true,
+          "value": "vitcornucom.sharepoint.com,29c4c9e3-459c-4e07-9bf2-42e54fc0290f,197a5c9e-3221-4306-9ccb-c0025d0e2bff",
+          "mode": "list",
+          "cachedResultName": "VitCornu AI"
+        },
+        "list": {
+          "__rl": true,
+          "value": "ded2a770-4ce3-4112-b066-7f43fa13ca08",
+          "mode": "list",
+          "cachedResultName": "Brand Configuration"
+        },
+        "limit": 5000,
+        "options": {
+          "fields": [
+            "fields"
+          ]
+        },
+        "simplify": false,
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        768,
+        752
+      ],
+      "id": "ab414552-b5f9-462e-9c5e-3889bdc85f9f",
+      "name": "Get many items",
+      "executeOnce": true,
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "smqqQSQOy0VQFfun",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Google Sheet\n",
+        "height": 256,
+        "width": 400
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        160,
+        688
+      ],
+      "typeVersion": 1,
+      "id": "169be3bd-729f-4ffc-a396-ef4de55c6236",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## SharePoint\n",
+        "height": 256,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        720,
+        688
+      ],
+      "typeVersion": 1,
+      "id": "94762d4f-0ec0-41be-9e0d-25eb3c8e0f69",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1136,
+        1056
+      ],
+      "id": "f379be38-fc34-4b7e-8a15-444141c7c577",
+      "name": "Respond to GetBrandDetails1"
+    },
+    {
+      "parameters": {
+        "resource": "item",
+        "site": {
+          "__rl": true,
+          "value": "vitcornucom.sharepoint.com,29c4c9e3-459c-4e07-9bf2-42e54fc0290f,197a5c9e-3221-4306-9ccb-c0025d0e2bff",
+          "mode": "list",
+          "cachedResultName": "VitCornu AI"
+        },
+        "list": {
+          "__rl": true,
+          "value": "ded2a770-4ce3-4112-b066-7f43fa13ca08",
+          "mode": "list",
+          "cachedResultName": "Brand Configuration"
+        },
+        "limit": 5000,
+        "options": {
+          "fields": [
+            "fields"
+          ]
+        },
+        "simplify": false,
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        544,
+        1056
+      ],
+      "id": "50c41d2e-a78f-433b-b82f-1c4a863ceeab",
+      "name": "Get many items1",
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "smqqQSQOy0VQFfun",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get the target brand name from the 'GetBrandDetails1' node\n// We use logical OR (||) to fallback to \"VitCornu\" if the expression is empty for testing\nconst targetBrand = $('GetBrandDetails').first().json.query.brand_name;\n\n// 2. Find the FIRST item where the Title matches the targetBrand\n// .find() stops immediately after finding the first match, effectively handling the \"duplicate\" requirement\nconst matchedItem = items.find(item => item.json.fields.Title === targetBrand);\n\n// 3. If no match is found, return an empty array (stops execution safely)\nif (!matchedItem) {\n  return [];\n}\n\n// 4. Format the found item\nconst fields = matchedItem.json.fields;\n\nreturn [\n  {\n    json: {\n      row_number: fields.ID, // Optional as requested\n      Brand_ID: fields.ID,\n      Brand: fields.Title,\n      Target_Persona: fields.Target_Persona,\n      Tone_of_Voice: fields.Tone_of_Voice,\n      Product_Context: fields.Product_Context,\n      \n      // Handle potentially missing text field\n      Compliance_Disclaimer_Block: fields.Compliance_Disclaimer_Block || \"\",\n      \n      // Extract URL from the nested object safely\n      CSS_Wrapper_Link: fields.CSS_Wrapper_Link ? fields.CSS_Wrapper_Link.Url : \"\"\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        864,
+        1056
+      ],
+      "id": "c8669b6e-d944-4e5d-9fd3-fa143ea6a71d",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "content": "## Google Sheet\n",
+        "height": 240
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        144,
+        992
+      ],
+      "typeVersion": 1,
+      "id": "0d8fd7ee-ce52-4a78-b9ce-dff65a7d621f",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## SharePoint\n",
+        "height": 240
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        480,
+        992
+      ],
+      "typeVersion": 1,
+      "id": "3fd1948c-9e9b-46e8-aae4-5e28d134a972",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "url": "https://vitcornu.app.n8n.cloud/webhook/GetBrandDetails",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "brand_name",
+              "value": "={{ $('AnalyzeKeyword_Backend').item.json.query.Brand_Name || $('AnalyzeKeyword_Backend').item.json.body.Brand_Name }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        464,
+        1936
+      ],
+      "id": "8258e7f9-d9f7-41d6-bcdf-d57a5ecbf16d",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "resource": "item",
+        "operation": "upsert",
+        "site": {
+          "__rl": true,
+          "value": "vitcornucom.sharepoint.com,29c4c9e3-459c-4e07-9bf2-42e54fc0290f,197a5c9e-3221-4306-9ccb-c0025d0e2bff",
+          "mode": "list",
+          "cachedResultName": "VitCornu AI"
+        },
+        "list": {
+          "__rl": true,
+          "value": "3ad0d1df-d35a-4400-90a8-e761d67ce059",
+          "mode": "list",
+          "cachedResultName": "Content Pipeline"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Is_Outline_Approved": false,
+            "Title": "={{ $json.query.Keyword }}",
+            "Target_Brand": "={{ $json.query.Brand }}",
+            "Status": "={{ $json.pave_status }}",
+            "Search_Summary": "={{ $json.query.search_summary }}",
+            "AI_Reasoning": "={{ $json.query.reasoning }}",
+            "PAVE_Score_P": "={{ $json.query.scores_p }}",
+            "PAVE_Score_V": "={{ $json.query.scores_v }}",
+            "PAVE_Score_E": "={{ $json.query.scores_e }}",
+            "PAVE_Score_A": "={{ $json.query.scores_a }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Status",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "readOnly": false,
+              "required": false,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Backlog",
+                  "value": "Backlog"
+                },
+                {
+                  "name": "Briefed",
+                  "value": "Briefed"
+                },
+                {
+                  "name": "In-Progress",
+                  "value": "In-Progress"
+                },
+                {
+                  "name": "In Production",
+                  "value": "In Production"
+                },
+                {
+                  "name": "Approved for Briefing",
+                  "value": "Approved for Briefing"
+                },
+                {
+                  "name": "Raw Idea",
+                  "value": "Raw Idea"
+                },
+                {
+                  "name": "PAVE Scored",
+                  "value": "PAVE Scored"
+                }
+              ]
+            },
+            {
+              "id": "Authority_Brief",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Approved_Outline",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Target_Brand",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target_Brand",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Is_Outline_Approved",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Is_Outline_Approved",
+              "readOnly": false,
+              "required": false,
+              "type": "boolean"
+            },
+            {
+              "id": "Search_Summary",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Search_Summary",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "AI_Reasoning",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "AI_Reasoning",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Draft_HTML_Body",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Draft_HTML_Body",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Image_Prompt",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Image_Prompt",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Alt_Text_Suggested",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Alt_Text_Suggested",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Cover_Image_URL",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Cover_Image_URL",
+              "readOnly": true,
+              "required": false
+            },
+            {
+              "id": "Master_Asset_Link",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Master_Asset_Link",
+              "readOnly": true,
+              "required": false
+            },
+            {
+              "id": "Last_ErrorLast_Error",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Last_ErrorLast_Error",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "PAVE_Score_P",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_P",
+              "readOnly": false,
+              "required": false,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "PAVE_Score_A",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_A",
+              "readOnly": false,
+              "required": false,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "PAVE_Score_V",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_V",
+              "readOnly": false,
+              "required": false,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "PAVE_Score_E",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_E",
+              "readOnly": false,
+              "required": false,
+              "type": "number",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        592,
+        320
+      ],
+      "id": "32cc7bcd-cec9-4738-aeae-9a09bbe2af89",
+      "name": "Create or update item (upsert)",
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "smqqQSQOy0VQFfun",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get the status value from the 'FetchItembyStatus' node\nconst targetStatus = $('FetchItembyStatus').first().json.query?.status;\n\n// 2. Filter the items based on the Status field\nconst filteredItems = items.filter(item => {\n  return item.json.fields && item.json.fields.Status === targetStatus;\n});\n\n// 3. IF NO MATCHES FOUND: Return the keys with empty/default values\nif (filteredItems.length === 0) {\n  return[\n    {\n      json: {\n        row_number: \"\",\n        ID: \"\",\n        Title: \"\",\n        Target_Brand: \"\",\n        Status: targetStatus || \"\", // Keeps the status you searched for, or empty\n        Approved_Outline: \"\",\n        Is_Outline_Approved: false,\n        Search_Summary: \"\",\n        AI_Reasoning: \"\",\n        Authority_Brief: \"\",\n        Draft_HTML_Body: \"\",\n        Image_Prompt: \"\",\n        Alt_Text_Suggested: \"\",\n        Cover_Image_URL: \"\",\n        Master_Asset_Link: \"\",\n        Last_ErrorLast_Error: \"\",\n        \n        // --- DEFAULT PAVE SCORES (No matches) ---\n        PAVE_Score_P: 0,\n        PAVE_Score_A: 0,\n        PAVE_Score_V: 0,\n        PAVE_Score_E: 0\n      }\n    }\n  ];\n}\n\n// 4. IF MATCHES FOUND: Map the filtered items to the desired output format\nreturn filteredItems.map(item => {\n  const fields = item.json.fields;\n\n  return {\n    json: {\n      row_number: fields.ID || \"\",\n      ID: fields.ID || \"\",\n      Title: fields.Title || \"\",\n      Target_Brand: fields.Target_Brand || \"\",\n      Status: fields.Status || \"\",\n      \n      // Handle text fields with fallbacks for null values\n      Approved_Outline: fields.Approved_Outline || \" \",\n      Is_Outline_Approved: fields.Is_Outline_Approved || false, // Ensure boolean\n      Search_Summary: fields.Search_Summary || \" \",\n      AI_Reasoning: fields.AI_Reasoning || \" \",\n      Authority_Brief: fields.Authority_Brief || \" \",\n      Draft_HTML_Body: fields.Draft_HTML_Body || \" \",\n      Image_Prompt: fields.Image_Prompt || \" \",\n      Alt_Text_Suggested: fields.Alt_Text_Suggested || \" \",\n      \n      // Handle SharePoint URL columns (often objects like { Description, Url })\n      Cover_Image_URL: fields.Cover_Image_URL?.Url || fields.Cover_Image_URL || \" \",\n      Master_Asset_Link: fields.Master_Asset_Link?.Url || fields.Master_Asset_Link || \" \",\n      \n      // Specific mapping for the last error column\n      Last_ErrorLast_Error: fields.Last_Error || \" \",\n\n      // --- NEW PAVE SCORE FIELDS ---\n      // Number() forces it to be a digit. || 0 acts as the fallback for null/empty values\n      PAVE_Score_P: Number(fields.PAVE_Score_P) || 0,\n      PAVE_Score_A: Number(fields.PAVE_Score_A) || 0,\n      PAVE_Score_V: Number(fields.PAVE_Score_V) || 0,\n      PAVE_Score_E: Number(fields.PAVE_Score_E) || 0\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -592,
+        3024
+      ],
+      "id": "d8dcda29-7b27-4c13-994a-a0731329d9de",
+      "name": "Code in JavaScript5",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "resource": "item",
+        "site": {
+          "__rl": true,
+          "value": "vitcornucom.sharepoint.com,29c4c9e3-459c-4e07-9bf2-42e54fc0290f,197a5c9e-3221-4306-9ccb-c0025d0e2bff",
+          "mode": "list",
+          "cachedResultName": "VitCornu AI"
+        },
+        "list": {
+          "__rl": true,
+          "value": "3ad0d1df-d35a-4400-90a8-e761d67ce059",
+          "mode": "list",
+          "cachedResultName": "Content Pipeline"
+        },
+        "limit": 5000,
+        "options": {
+          "fields": [
+            "fields"
+          ]
+        },
+        "simplify": false,
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        3024
+      ],
+      "id": "6d1f6101-c80a-479c-90d0-cb109e5cd818",
+      "name": "Get many items2",
+      "executeOnce": true,
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "smqqQSQOy0VQFfun",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "item",
+        "operation": "get",
+        "site": {
+          "__rl": true,
+          "value": "vitcornucom.sharepoint.com,29c4c9e3-459c-4e07-9bf2-42e54fc0290f,197a5c9e-3221-4306-9ccb-c0025d0e2bff",
+          "mode": "list",
+          "cachedResultName": "VitCornu AI"
+        },
+        "list": {
+          "__rl": true,
+          "value": "3ad0d1df-d35a-4400-90a8-e761d67ce059",
+          "mode": "list",
+          "cachedResultName": "Content Pipeline"
+        },
+        "item": {
+          "__rl": true,
+          "value": "={{ $json.query.id }}",
+          "mode": "id"
+        },
+        "simplify": false,
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -80
+      ],
+      "id": "b4245005-e189-4686-8d8b-589ce751bb60",
+      "name": "Get an item",
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "smqqQSQOy0VQFfun",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  // Access the fields object safely\n  const fields = item.json.fields || {};\n\n  // Helper function to extract URL if it's a SharePoint URL object, or return string/empty\n  const getUrl = (field) => {\n    if (field && typeof field === 'object' && field.Url) return field.Url;\n    return field || \"\";\n  };\n\n  return {\n    json: {\n      row_number: fields.ID,\n      ID: fields.ID,\n      Title: fields.Title,\n      \n      // NOTE: Your input currently only has 'Target_BrandLookupId' (value \"1\").\n      // This line checks if a real name exists, otherwise falls back to the ID.\n      // Target_Brand: fields.Target_Brand || fields.Target_BrandLookupId || \"\",\n      Target_Brand: \"VitCornu\",\n      \n      Status: fields.Status,\n      \n      // Fields not present in input are defaulted to empty strings or false\n      Approved_Outline: fields.Approved_Outline || \"\",\n      Is_Outline_Approved: fields.Is_Outline_Approved || false,\n      Search_Summary: fields.Search_Summary || \"\",\n      AI_Reasoning: fields.AI_Reasoning || \"\",\n      Authority_Brief: fields.Authority_Brief || \"\",\n      Draft_HTML_Body: fields.Draft_HTML_Body || \"\",\n      Image_Prompt: fields.Image_Prompt || \"\",\n      Alt_Text_Suggested: fields.Alt_Text_Suggested || \"\",\n      \n      // Handle URL extractions\n      Cover_Image_URL: getUrl(fields.Cover_Image_URL),\n      Master_Asset_Link: getUrl(fields.Master_Asset_Link),\n      \n      Last_ErrorLast_Error: fields.Last_Error || \"\"\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        -80
+      ],
+      "id": "3d9c1eb1-dc5a-47d1-8ec5-9f901a6bc124",
+      "name": "Code in JavaScript6"
+    },
+    {
+      "parameters": {
+        "resource": "item",
+        "operation": "update",
+        "site": {
+          "__rl": true,
+          "value": "vitcornucom.sharepoint.com,29c4c9e3-459c-4e07-9bf2-42e54fc0290f,197a5c9e-3221-4306-9ccb-c0025d0e2bff",
+          "mode": "list",
+          "cachedResultName": "VitCornu AI"
+        },
+        "list": {
+          "__rl": true,
+          "value": "3ad0d1df-d35a-4400-90a8-e761d67ce059",
+          "mode": "list",
+          "cachedResultName": "Content Pipeline"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Is_Outline_Approved": false,
+            "Status": "Briefed",
+            "Authority_Brief": "=",
+            "id": "={{ $json.body.id }}",
+            "PAVE_Score_P": 0,
+            "PAVE_Score_A": 0,
+            "PAVE_Score_V": 0,
+            "PAVE_Score_E": 0,
+            "Authority_Brief0": "={{ $json.body.brief_text }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "Title",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Status",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "readOnly": false,
+              "required": false,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Backlog",
+                  "value": "Backlog"
+                },
+                {
+                  "name": "Briefed",
+                  "value": "Briefed"
+                },
+                {
+                  "name": "In-Progress",
+                  "value": "In-Progress"
+                },
+                {
+                  "name": "In Production",
+                  "value": "In Production"
+                },
+                {
+                  "name": "Approved for Briefing",
+                  "value": "Approved for Briefing"
+                },
+                {
+                  "name": "Raw Idea",
+                  "value": "Raw Idea"
+                },
+                {
+                  "name": "PAVE Scored",
+                  "value": "PAVE Scored"
+                }
+              ]
+            },
+            {
+              "id": "Authority_Brief",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Approved_Outline",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Target_Brand",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target_Brand",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Is_Outline_Approved",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Is_Outline_Approved",
+              "readOnly": false,
+              "required": false,
+              "type": "boolean"
+            },
+            {
+              "id": "Search_Summary",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Search_Summary",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "AI_Reasoning",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "AI_Reasoning",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Draft_HTML_Body",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Draft_HTML_Body",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Image_Prompt",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Image_Prompt",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Alt_Text_Suggested",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Alt_Text_Suggested",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Cover_Image_URL",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Cover_Image_URL",
+              "readOnly": true,
+              "required": false
+            },
+            {
+              "id": "Master_Asset_Link",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Master_Asset_Link",
+              "readOnly": true,
+              "required": false
+            },
+            {
+              "id": "Last_ErrorLast_Error",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Last_ErrorLast_Error",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "PAVE_Score_P",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_P",
+              "readOnly": false,
+              "required": false,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "PAVE_Score_A",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_A",
+              "readOnly": false,
+              "required": false,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "PAVE_Score_V",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_V",
+              "readOnly": false,
+              "required": false,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "PAVE_Score_E",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_E",
+              "readOnly": false,
+              "required": false,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "Authority_Brief0",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Authority_Brief",
+              "readOnly": false,
+              "required": false,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "id",
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "readOnly": true,
+              "required": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        304,
+        1248
+      ],
+      "id": "2477dec6-a7ee-4107-a0f6-2b98abc70516",
+      "name": "Update item in a list",
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "smqqQSQOy0VQFfun",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "item",
+        "operation": "update",
+        "site": {
+          "__rl": true,
+          "value": "vitcornucom.sharepoint.com,29c4c9e3-459c-4e07-9bf2-42e54fc0290f,197a5c9e-3221-4306-9ccb-c0025d0e2bff",
+          "mode": "list",
+          "cachedResultName": "VitCornu AI"
+        },
+        "list": {
+          "__rl": true,
+          "value": "3ad0d1df-d35a-4400-90a8-e761d67ce059",
+          "mode": "list",
+          "cachedResultName": "Content Pipeline"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Is_Outline_Approved": false,
+            "id": "={{ $json.query.id }}",
+            "Status": "={{ $json.query.new_status }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "Title",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Status",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "readOnly": false,
+              "required": false,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Backlog",
+                  "value": "Backlog"
+                },
+                {
+                  "name": "Briefed",
+                  "value": "Briefed"
+                },
+                {
+                  "name": "In-Progress",
+                  "value": "In-Progress"
+                },
+                {
+                  "name": "In Production",
+                  "value": "In Production"
+                },
+                {
+                  "name": "Approved for Briefing",
+                  "value": "Approved for Briefing"
+                },
+                {
+                  "name": "Raw Idea",
+                  "value": "Raw Idea"
+                },
+                {
+                  "name": "PAVE Scored",
+                  "value": "PAVE Scored"
+                }
+              ]
+            },
+            {
+              "id": "Authority_Brief",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Approved_Outline",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Target_Brand",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target_Brand",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Is_Outline_Approved",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Is_Outline_Approved",
+              "readOnly": false,
+              "required": false,
+              "type": "boolean"
+            },
+            {
+              "id": "Search_Summary",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Search_Summary",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "AI_Reasoning",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "AI_Reasoning",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Draft_HTML_Body",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Draft_HTML_Body",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Image_Prompt",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Image_Prompt",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Alt_Text_Suggested",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Alt_Text_Suggested",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Cover_Image_URL",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Cover_Image_URL",
+              "readOnly": true,
+              "required": false
+            },
+            {
+              "id": "Master_Asset_Link",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Master_Asset_Link",
+              "readOnly": true,
+              "required": false
+            },
+            {
+              "id": "Last_ErrorLast_Error",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Last_ErrorLast_Error",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "id",
+              "canBeUsedToMatch": true,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "ID",
+              "readOnly": true,
+              "required": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        176,
+        1440
+      ],
+      "id": "fbe83b84-efb8-4fb2-9b66-22f4018ddcda",
+      "name": "Update item in a list1",
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "smqqQSQOy0VQFfun",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "item",
+        "site": {
+          "__rl": true,
+          "value": "vitcornucom.sharepoint.com,29c4c9e3-459c-4e07-9bf2-42e54fc0290f,197a5c9e-3221-4306-9ccb-c0025d0e2bff",
+          "mode": "list",
+          "cachedResultName": "VitCornu AI"
+        },
+        "list": {
+          "__rl": true,
+          "value": "3ad0d1df-d35a-4400-90a8-e761d67ce059",
+          "mode": "list",
+          "cachedResultName": "Content Pipeline"
+        },
+        "limit": 5000,
+        "options": {
+          "fields": [
+            "fields"
+          ]
+        },
+        "simplify": false,
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        -704,
+        3344
+      ],
+      "id": "19d757d3-239d-4611-b712-7781945c9669",
+      "name": "Get many items3",
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "smqqQSQOy0VQFfun",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  // Access the fields object safely\n  const fields = item.json.fields || {};\n\n  // Helper function to safely extract URL if it's an object, or return the string/empty\n  const getUrl = (field) => {\n    if (field && typeof field === 'object' && field.Url) return field.Url;\n    return field || \"\";\n  };\n\n  // Calculate row_number (based on your example, row_number is ID + 1)\n  const rowNumber = fields.ID ? Number(fields.ID) + 1 : \"\";\n\n  return {\n    json: {\n      row_number: rowNumber,\n      ID: fields.ID || \"\",\n      Title: fields.Title || \"\",\n      \n      // Uses Target_Brand if available, otherwise falls back to the Lookup ID, or empty string\n      Target_Brand: fields.Target_Brand || fields.Target_BrandLookupId || \"\",\n      \n      Status: fields.Status || \"\",\n      \n      // Handle text fields with fallbacks for null/missing values\n      Approved_Outline: fields.Approved_Outline || \"\",\n      \n      // Ensures boolean evaluation (if missing, defaults to false)\n      Is_Outline_Approved: fields.Is_Outline_Approved ?? false, \n      \n      Search_Summary: fields.Search_Summary || \"\",\n      AI_Reasoning: fields.AI_Reasoning || \"\",\n      Authority_Brief: fields.Authority_Brief || \"\",\n      Draft_HTML_Body: fields.Draft_HTML_Body || \"\",\n      Image_Prompt: fields.Image_Prompt || \"\",\n      Alt_Text_Suggested: fields.Alt_Text_Suggested || \"\",\n      \n      // Handle SharePoint URL columns safely\n      Cover_Image_URL: getUrl(fields.Cover_Image_URL),\n      Master_Asset_Link: getUrl(fields.Master_Asset_Link),\n      \n      // Specific mapping for the last error column\n      Last_ErrorLast_Error: fields.Last_Error || \"\",\n\n      // --- NEW PAVE SCORE FIELDS ---\n      // Number() ensures it's treated as a digit. || 0 forces a 0 if null, undefined, or empty string\n      PAVE_Score_P: Number(fields.PAVE_Score_P) || 0,\n      PAVE_Score_A: Number(fields.PAVE_Score_A) || 0,\n      PAVE_Score_V: Number(fields.PAVE_Score_V) || 0,\n      PAVE_Score_E: Number(fields.PAVE_Score_E) || 0\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        3344
+      ],
+      "id": "21abdb51-86ff-40ab-b109-92f7dc697ae5",
+      "name": "Code in JavaScript7"
+    },
+    {
+      "parameters": {
+        "resource": "item",
+        "operation": "upsert",
+        "site": {
+          "__rl": true,
+          "value": "vitcornucom.sharepoint.com,933ed633-d023-4aec-8864-38ccad8f368d,6302896b-c594-4759-b1dd-9da1124508af",
+          "mode": "list",
+          "cachedResultName": "Content Hub"
+        },
+        "list": {
+          "__rl": true,
+          "value": "b42da4ae-28db-4bb6-9ec0-0ddb91e773dc",
+          "mode": "list",
+          "cachedResultName": "Content Pipeline"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Target_Brand": "={{ $json.query.Brand }}",
+            "Title": "={{ $json.query.Keyword }}",
+            "PAVE_Score_P": "={{ $json.query.scores_p }}",
+            "PAVE_Score_A": "={{ $json.query.scores_a }}",
+            "PAVE_Score_V": "={{ $json.query.scores_v }}",
+            "PAVE_Score_E": "={{ $json.query.scores_e }}",
+            "Status": "={{ $json.pave_status }}",
+            "AI_Reasoning": "={{ $json.query.reasoning }}",
+            "Search_Summary": "={{ $json.query.search_summary }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Title",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Target_Brand",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Target_Brand",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Status",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Status",
+              "readOnly": false,
+              "required": false,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Raw Idea",
+                  "value": "Raw Idea"
+                },
+                {
+                  "name": "PAVE Scored",
+                  "value": "PAVE Scored"
+                },
+                {
+                  "name": "Approved for Briefing",
+                  "value": "Approved for Briefing"
+                },
+                {
+                  "name": "Briefed",
+                  "value": "Briefed"
+                },
+                {
+                  "name": "In Production",
+                  "value": "In Production"
+                },
+                {
+                  "name": "Published",
+                  "value": "Published"
+                },
+                {
+                  "name": "Needs Refresh",
+                  "value": "Needs Refresh"
+                }
+              ]
+            },
+            {
+              "id": "PAVE_Score_P",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_P",
+              "readOnly": false,
+              "required": false,
+              "type": "number"
+            },
+            {
+              "id": "PAVE_Score_A",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_A",
+              "readOnly": false,
+              "required": false,
+              "type": "number"
+            },
+            {
+              "id": "PAVE_Score_V",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_V",
+              "readOnly": false,
+              "required": false,
+              "type": "number"
+            },
+            {
+              "id": "PAVE_Score_E",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "PAVE_Score_E",
+              "readOnly": false,
+              "required": false,
+              "type": "number"
+            },
+            {
+              "id": "Search_Summary",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Search_Summary",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "AI_Reasoning",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "AI_Reasoning",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Authority_Brief",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Authority_Brief",
+              "readOnly": false,
+              "required": false,
+              "type": "string"
+            },
+            {
+              "id": "Master_Asset_Link",
+              "canBeUsedToMatch": false,
+              "defaultMatch": false,
+              "display": true,
+              "displayName": "Master_Asset_Link",
+              "readOnly": true,
+              "required": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        592,
+        512
+      ],
+      "id": "4fda9d22-fcf3-4526-bb3a-40d491683510",
+      "name": "Create or update item (upsert)1",
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "smqqQSQOy0VQFfun",
+          "name": "Microsoft SharePoint account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "ProduceContent": [
+      {
+        "json": {
+          "headers": {
+            "host": "vitcornu.app.n8n.cloud",
+            "user-agent": "PostmanRuntime/7.51.1",
+            "content-length": "12638",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "2400:adc5:483:6e01:65d5:4c26:6197:a540",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "PK",
+            "cf-ray": "9d081c0415a0e219-MRS",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "multipart/form-data; boundary=--------------------------691609112157059455169137",
+            "postman-token": "69f023bd-288a-4267-bd46-f9163ee4e96f",
+            "x-forwarded-for": "2400:adc5:483:6e01:65d5:4c26:6197:a540, 172.70.108.166",
+            "x-forwarded-host": "vitcornu.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-c65d8f959-mhfpb",
+            "x-is-trusted": "yes",
+            "x-real-ip": "2400:adc5:483:6e01:65d5:4c26:6197:a540"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "title": "Best snow shoe",
+            "search_summary": "---\n**Keyword:** Best snow shoe  \n**Date:** 2026-02-17  \n**Search Intent:** Commercial\n\n**Top 5 Results:**\n\n| # | Domain | Title | Content Type | Key Strength |\n|---|--------|-------|--------------|--------------|\n| 1 | backpacker.com | The 8 Best Snowshoes of 2026 | Editorial gear guide / reviews | Comprehensive, tested 2026 round-up across eight models, with category-specific picks (all-around, durable, budget, etc.). ([backpacker.com](https://www.backpacker.com/gear/essentials/snowshoes/best-snowshoes-2026/)) |\n| 2 | outdoorgearlab.com | The Best Snowshoes | In-depth gear review and comparison | Data-driven scoring and broad coverage across flotation, traction, bindings, and weight. ([outdoorgearlab.com](https://www.outdoorgearlab.com/topics/snow-sports/best-snowshoes)) |\n| 3 | theinertia.com | The Best Snowshoes | Editorial gear guide with pros/cons | Practical, user-focused write-ups across terrain types; concise model-by-model notes. ([theinertia.com](https://www.theinertia.com/gear/best-snowshoes/)) |\n| 4 | gearjunkie.com | The 5 Best Snowshoes of 2026 | Editorial gear guide / round-up | Up-to-date 2026 picks with targeted categories (overall, budget, deep snow, etc.). ([gearjunkie.com](https://gearjunkie.com/winter/best-snowshoes)) |\n| 5 | rei.com | The 7 Best Snowshoes of 2025: Staff Picks | Retail expert-advice guide | Curated staff picks with real-world testing context and buying guidance. ([rei.com](https://www.rei.com/learn/expert-advice/best-snowshoes.html)) |\n\n**Pattern Analysis:**\n- Dominant content format: Listicles and round-ups that map models to use-cases (e.g., all-around, budget, deep snow) across multiple brands. ([backpacker.com](https://www.backpacker.com/gear/essentials/snowshoes/best-snowshoes-2026/))\n- Common authority signals: Established outdoor publishers and retailers with long-standing review tracks (Backpacker, OutdoorGearLab, The Inertia, GearJunkie, REI). ([backpacker.com](https://www.backpacker.com/gear/essentials/snowshoes/best-snowshoes-2026/))\n- SERP features present: Rich imagery in guide articles; category headers and quick-at-a-glance sections. (Multiple pages show image-forward layouts and consolidated “At a Glance” sections.) ([backpacker.com](https://www.backpacker.com/gear/essentials/snowshoes/best-snowshoes-2026/))\n- Content gap opportunity: A consolidated, up-to-date comparison matrix (scores, weights, and terrain-fit) across all 5–7 top models per budget tier could reduce decision friction for buyers. ([backpacker.com](https://www.backpacker.com/gear/essentials/snowshoes/best-snowshoes-2026/))\n\n**Confidence:** Medium",
+            "authority_brief": "# Authority Brief: VitCornu “Best Snowshoe” Comparison Page\n\nDeliverable type: Comparison/Guide page to establish VitCornu as an authority in winter footwear gear, with a data-driven, buyer-focused presentation of top snowshoe models including VitCornu’s lineup.\n\nDifferentiator\n- A unified, up-to-date comparison matrix that scores 5–7 top models across clear use-cases and budgets, plus VitCornu-specific recommendations.\n- Real-world testing notes paired with objective spec data (weight, flotation, traction, bindings, durability) to reduce decision friction.\n- Visual, at-a-glance sections (quick picks, terrain-fit, and a “VitCornu Quick Pick”) combined with an interactive experience (filters by budget, terrain, and user weight).\n\nSME Input\n- Product Team: Provide VitCornu snowshoe models (weights, bindings, sizing ranges, flotation specs, materials, price), warranty terms, and lead times.\n- Field Testing Team: Gather real-world feedback on performance across terrains (packed trail, deep powder, icy crust), durability observations, and common user complaints.\n- Marketing/UX: Confirm preferred purchase funnels (affiliate vs. direct), and any existing VitCornu endorsements or field-test data we can quote.\n\n1) Content Goal\n- Establish VitCornu as a trusted, data-driven source for snowshoe shopping.\n- Deliver a comprehensive, up-to-date comparison of top models (5–7) by use-case and budget, with clear buying guidance.\n- Drive engagement and conversions: page views, time on page, interaction with the comparison matrix, and clicks to VitCornu product pages or retailer partners.\n- Improve SEO for “best snowshoe” and related intent signals by providing fresh, authoritative content and schema-rich data.\n\n2) Target Audience\n- Casual winter hikers seeking a single, reliable pair for mixed terrains.\n- Serious winter trekkers/backcountry users needing flotation and traction in deep snow.\n- Budget-conscious buyers comparing value vs. performance.\n- Brand-loyalists and VitCornu customers evaluating options within or across brands.\n- Geographic focus: regions with reliable snow (North America, Europe, select Asia-Pacific markets) and winter resort/forest-access users.\n\n3) Content Outline (H2/H3 structure)\n- H1: Best Snowshoes of 2026: VitCornu’s Buyer’s Guide and Comparison\n- H2: Why the Right Snowshoe Matters\n  - H3: Key performance factors (flotation, weight, traction, bindings, durability)\n  - H3: Quick glossary of terms\n- H2: How to Choose Your Snowshoe\n  - H3: Terrain scenarios (all-around, deep powder, groomed trails, backcountry)\n  - H3: User weight and sizing\n  - H3: Budget vs. performance trade-offs\n- H2: VitCornu's Approach to the Best Snowshoe Picks\n  - H3: Our scoring rubric and what we measure\n  - H3: What makes VitCornu different\n- H2: Snowshoe Comparison Matrix (At a Glance)\n  - H3: Legend and scoring icons\n  - H3: Interactive filtering (budget, terrain, weight, binding type)\n- H2: Top Models: Model-by-Model Deep Dive\n  - H3: VitCornu Model A (e.g., all-around)\n  - H3: VitCornu Model B (e.g., deep powder)\n  - H3: Model C (budget-friendly)\n  - H3: Model D (backcountry/rugged)\n  - H3: Model E (women-specific or youth, if applicable)\n  - H3: Competitor Highlights (brief, objective notes)\n- H2: Buyer's Guide: Sizing, Fit, and Maintenance\n- H2: FAQ\n- H2: How to Read the Scorecard and Decide Fast\n- H2: Related Gear You Might Need\n- H2: About VitCornu and Warranty\n- H2: Sources and Methodology\n- H2: Appendix: Data Sheet and Downloads (CSV/Excel)\n\n4) Key Points to Cover\n- Use-case driven mapping: Each model should be categorized by primary use-case (all-around, deep snow, budget, backcountry, etc.) and clearly show where it shines and where it’s less ideal.\n- Data-driven scoring: Create a transparent scorecard across key metrics:\n  - Flotation (volume/area relative to rider weight)\n  - Weight (per pair)\n  - Traction/ice grip (toe crampons, heel traction, dynamic bite)\n  - Bindings and ease of use (strap-in vs. quick release, glove-friendly)\n  - Durability/Materials (frame material, decking, wear surfaces)\n  - Price and value (cost-per-performance)\n  - Packability and carry comfort\n  - Terrain-fit / versatility\n- Visuals and layout: Rich imagery, at-a-glance “best in category” callouts, and a downloadable data sheet.\n- VitCornu spotlight: Include a dedicated “VitCornu Quick Pick” for the most versatile go-to model, plus a recommended option for budget-conscious buyers.\n- Authentic testing notes: Real-world field-test observations (positive and negative) to back up specs.\n- Sizing and fit guidance: Clear guidance on sizing, weight ranges, and snowshoe length recommendations.\n- Accessibility and UX: Keyboard-navigable matrix, alt text for images, and concise, actionable copy.\n- SEO and schema: Implement Review/Rating schema for each model or Product schema for a comparison page; use structured data to support rich results.\n\n5) Sources & Research Requirements\n- Core industry guide pages (for benchmarking and validation):\n  - Backpacker: The 8 Best Snowshoes of 2026\n  - OutdoorGearLab: The Best Snowshoes\n  - The Inertia: The Best Snowshoes\n  - GearJunkie: The 5 Best Snowshoes of 2026\n  - REI: The 7 Best Snowshoes of 2025: Staff Picks\n- Manufacturer/spec sheets for top models (weights, bindings, dimensions, recommended rider weight, price, materials, warranty).\n- Independent testing data where available (traction performance, durability notes).\n- VitCornu internal data: product specs for VitCornu models; warranty terms; buying options; any field-test data or endorsements.\n- Visual assets: High-res product images, installation/gait demonstrations, and any 360° views or videos.\n- SEO targets: Keyword research for “best snowshoe,” “snowshoes 2026,” “buying snowshoes,” “snowshoe comparison,” and geo-targeted variants.\n\n6) Success Metrics\n- Engagement and reach\n  - Time on page, scroll depth, pages per session\n  - Click-through rate (CTR) from the comparison matrix to product pages or retailer partners\n  - Number of interactions with filters and the data-download link\n- Conversion and revenue signals\n  - Click-throughs to VitCornu product pages, and subsequent purchases or wish-list adds\n  - Email newsletter signups via the page (soft conversion)\n  - Affiliate revenue and direct e-commerce referrals (if applicable)\n- Search visibility and credibility\n  - Target keyword rankings (best snowshoe, snowshoes 2026, etc.)\n  - Featured snippet/structured data presence\n  - Backlinks from credible outdoor gear sites and forums\n- Content quality and maintenance\n  - Page update cadence (seasonally refreshed with 2026 data)\n  - User feedback volume and sentiment on the model recommendations\n  - Recycling rate of data (e.g., quarterly price changes, new model additions)\n\nOptional: Metrics Targets (baseline is example; adjust to your analytics)\n- Time on page: > 3:00 minutes\n- Matrix interactions: 25% of visitors engage with filters\n- CVR from page to VitCornu product pages: 2–4% (adjust per channel)\n- Organic clicks to VitCornu site from this page: 1–2% of total sessions\n- 90-day update cadence with a 95% data accuracy rate in the matrix\n\nImplementation notes\n- Content should be built with a modular, future-proof structure so you can add/remove models or update scores with minimal disruption.\n- Use a color-coded scorecard (e.g., green/amber/red) and a downloadable CSV for buyers who want to crunch the numbers offline.\n- Include a brief note clarifying that model fits depend on rider weight, skill, terrain, and conditions; provide a sizing calculator or quick guide.\n- Ensure compliance with affiliate disclosures and warranty terms where applicable.\n\nAppendix: Suggested Section Micro-Copy (sample)\n- “Which snowshoe is right for you? Use our category filters to find all-around performers, light-weight trail runners, deep-powder champions, and value picks that don’t break the bank.”\n- “VitCornu Quick Pick: For most winter adventures, across a range of conditions, our top recommendation balances flotation, weight, and durability—backed by field testing.”\n- “Data you can trust: Every model on this page is scored using standardized benchmarks and real-world feedback from winter conditions.”\n\nIf you’d like, I can turn this brief into a ready-to-publish content plan with a concrete H2/H3 fill, a proposed model list (including VitCornu options), a draft comparison matrix structure, and a suggested KPI dashboard for ongoing updates.",
+            "brand_name": "VitCornu",
+            "brand_persona": "Oliver: The Conscious Architect\nAge 52, UK, small business owner/architect, analytical, detail-oriented, evidence-led. Chronic back pain, old knee injury, distrusts “bro science.” Wants structured, durable, efficient routines and products that are scientifically backed.\n\nKey drivers:\nStructured mobility + pain reduction (back/knee-safe)\nSustainable performance and durability\nStress/sleep improvement\nPractical, efficient routines with minimal kit",
+            "brand_tone": "Reading level: 8th grade\nTone: empathetic, reassuring, professional\nWriting rules:\nShort paragraphs (3–4 sentences)\nFrequent H2 subheadings\nBold key takeaways\nBullet lists for steps\nMust be: evidence-based, calm, non-alarmist\nAvoid: “get fit fast”, weight-loss promises, “no pain no gain”, hacks/fads"
+          },
+          "webhookUrl": "https://vitcornu.app.n8n.cloud/webhook-test/ProduceContent",
+          "executionMode": "test"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "FetchItemDetails": [
+      {
+        "json": {
+          "headers": {
+            "host": "vitcornu.app.n8n.cloud",
+            "user-agent": "axios/1.12.0",
+            "accept": "application/json,text/html,application/xhtml+xml,application/xml,text/*;q=0.9, image/*;q=0.8, */*;q=0.7",
+            "accept-encoding": "gzip, br",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "20.218.238.120",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "DE",
+            "cf-ray": "9d304aac1b0865ab-FRA",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "x-forwarded-for": "20.218.238.120, 172.69.151.55",
+            "x-forwarded-host": "vitcornu.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-c65d8f959-mhfpb",
+            "x-is-trusted": "yes",
+            "x-real-ip": "20.218.238.120"
+          },
+          "params": {},
+          "query": {
+            "id": "33"
+          },
+          "body": {},
+          "webhookUrl": "https://vitcornu.app.n8n.cloud/webhook/FetchItemDetails",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "GetBrandDetails": [
+      {
+        "json": {
+          "headers": {
+            "host": "vitcornu.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "3.29.27.200",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "AE",
+            "cf-ray": "9d3068914a2be279-MRS",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "cookie": "ajs_anonymous_id=%220425be4c-7c63-4709-ae4d-5ffe2a8406dd%22",
+            "forwarded": "for=59.103.216.15;host=vitcornu.app.n8n.cloud;proto=https",
+            "priority": "u=1, i",
+            "referer": "https://ai-content-swart.vercel.app/brief",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-api-key": "your_api_key_here",
+            "x-forwarded-for": "3.29.27.200, 172.70.108.167",
+            "x-forwarded-host": "vitcornu.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-c65d8f959-hb5rg",
+            "x-is-trusted": "yes",
+            "x-real-ip": "3.29.27.200",
+            "x-vercel-forwarded-for": "59.103.216.15",
+            "x-vercel-id": "dxb1::626mw-1771951265417-3953f7d224c7",
+            "x-vercel-ja4-digest": "t13d1517h2_8daaf6152771_b6f405a00624",
+            "x-vercel-proxied-for": "59.103.216.15",
+            "x-vercel-proxy-signature": "Bearer f2cfefb2e5da8bc94537cf44540eb8e579e4240c3f99b8838d7a72d19c8ff915",
+            "x-vercel-proxy-signature-ts": "1771951565"
+          },
+          "params": {},
+          "query": {
+            "brand_name": "1"
+          },
+          "body": {},
+          "webhookUrl": "https://vitcornu.app.n8n.cloud/webhook/GetBrandDetails",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "UpdateBriefAndStatus": [
+      {
+        "json": {
+          "headers": {
+            "host": "vitcornu.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+            "content-length": "10731",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "40.172.191.132",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "AE",
+            "cf-ray": "9d3164dbac7dcb4b-MRS",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "cookie": "ajs_anonymous_id=%220425be4c-7c63-4709-ae4d-5ffe2a8406dd%22",
+            "forwarded": "for=59.103.216.15;host=vitcornu.app.n8n.cloud;proto=https",
+            "origin": "https://ai-content-swart.vercel.app",
+            "priority": "u=1, i",
+            "referer": "https://ai-content-swart.vercel.app/brief",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-api-key": "your_api_key_here",
+            "x-forwarded-for": "40.172.191.132, 162.159.122.188",
+            "x-forwarded-host": "vitcornu.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-c65d8f959-hb5rg",
+            "x-is-trusted": "yes",
+            "x-real-ip": "40.172.191.132",
+            "x-vercel-forwarded-for": "59.103.216.15",
+            "x-vercel-id": "dxb1::fz44j-1771961598900-6c3d8491d47b",
+            "x-vercel-ja4-digest": "t13d1517h2_8daaf6152771_b6f405a00624",
+            "x-vercel-proxied-for": "59.103.216.15",
+            "x-vercel-proxy-signature": "Bearer ff36e087309a839edb51a6a0b4d521e3c4e3a062e70c7f719484b6dd11bf35e1",
+            "x-vercel-proxy-signature-ts": "1771961898"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "id": "33",
+            "brief_text": "## 1) Content Goal\n- Establish VitCornu as a vendor-agnostic, authoritative source on AI automation for a professional audience.\n- Deliver a canonical comparison hub that (a) defines IA vs AI automation vs RPA, (b) provides side-by-side benchmarks and criteria, (c) shares practitioner case studies across industries, and (d) offers actionable ROI and implementation playbooks.\n- Generate qualified engagement (downloads, consultations, and demo requests) while boosting organic authority for related long-tail queries.\n\n## 2) Target Audience\n- IT executives, CIOs and CTOs evaluating automation strategies.\n- Digital transformation leaders, automation program managers, and RPA/AI leads.\n- Operations leaders in mid-market to enterprise contexts seeking vendor-neutral guidance and ROI clarity.\n- Line-of-business managers exploring practical use cases and governance for AI-enabled automation.\n\nBrand fit: VitCornu presents helpful, professional, evidence-based guidance that empowers decision-makers with clear definitions, practical playbooks, and defensible ROI.\n\n## 3) Content Outline (H2/H3 structure)\nNote: This is a canonical, vendor-agnostic comparison hub. Each section should remain neutral and evidence-based, with actionable templates and checklists.\n\n- H1: AI Automation: A Vendor-Agnostic Guide to Definitions, Comparisons, and ROI Playbooks\n\n- H2: What is AI Automation?\n  - H3: Definitions and scope\n  - H3: Key terms explained (AI automation, intelligent automation, RPA, ML/NLP, agentic AI)\n  - H3: Why organizations pursue AI automation today\n\n- H2: IA vs AI Automation vs RPA: Taxonomy and Taxonomies\n  - H3: High-level taxonomy and how they relate\n  - H3: When to use each approach\n  - H3: Common misconceptions\n\n- H2: Comparison Framework: Side-by-Side Evaluation\n  - H3: Evaluation matrix (core dimensions)\n  - H3: Use-case fit by category (customer service, operations, finance, manufacturing, etc.)\n  - H3: Implementation complexity and timelines\n\n- H2: Practical ROI and TCO Playbook\n  - H3: ROI models and example calculations\n  - H3: Total cost of ownership (TCO) considerations\n  - H3: Quick wins vs. long-term value\n  - H3: ROI benchmarks by industry (with caveats)\n\n- H2: Industry Use Cases and Practitioner Insights\n  - H3: Case studies by industry (finance, healthcare, manufacturing, services, retail/logistics)\n  - H3: Lessons learned and success factors\n  - H3: Change management and governance tips\n\n- H2: Vendor-agnostic Evaluation Checklist\n  - H3: RFP questions and evaluation rubric\n  - H3: Data readiness and integration checklist\n  - H3: Security, compliance, and risk considerations\n  - H3: Skills, training, and organizational readiness\n\n- H2: Architecture and Data Requirements for AI Automation\n  - H3: Data quality, lineage, and governance\n  - H3: Integration patterns (APIs, event streams, iPaaS)\n  - H3: Operational AI governance and bias considerations\n\n- H2: Roadmap: How to Implement AI Automation in Your Organization\n  - H3: Maturity model stages (0–4+)\n  - H3: Phased implementation plan (pilot -> scale)\n  - H3: Change management and stakeholder alignment\n\n- H2: Risks, Pitfalls, and Mitigations\n  - H3: Technical risks (data, model drift, reliability)\n  - H3: Compliance, privacy, and security\n  - H3: Organizational and skills gaps\n  - H3: Vendor lock-in and exit strategies\n\n- H2: FAQs\n  - H3: Quick clarifications and common doubts\n\n- H2: Next Steps and CTAs\n  - H3: Downloadable ROI calculator and templates\n  - H3: Request a VitCornu consultation\n  - H3: Access to playbooks and case study library\n\n- H2: Appendix (Optional)\n  - H3: Glossary\n  - H3: Quick-reference comparison matrix (downloadable)\n\n- Optional visual assets\n  - A clean, vendor-neutral comparison matrix (downloadable as a PDF)\n  - ROI calculator widget (embedded or linked)\n  - Case study one-pagers by industry\n\n## 4) Key Points to Cover\n- Clear definitions and taxonomies: distinguish IA, AI automation, RPA, ML/NLP components, and agentic AI. Provide short, punchy definitions and a longer, reference-style explanation.\n- Vendor-agnostic framework: emphasize evaluation criteria, benchmarks, and playbooks rather than vendor-specific claims.\n- Side-by-side comparisons: deliver a matrix that maps use cases to techniques, benefits, costs, timelines, data needs, and governance requirements.\n- Practitioner relevance: include real-world case studies across industries with measurable outcomes (e.g., cycle time reduction, cost savings, error rate improvements).\n- ROI and implementation playbooks: provide formulas and templates to estimate ROI, TCO, and value realization timelines; include a repeatable cybersecurity, data governance, and risk framework.\n- Governance and risk: highlight data privacy, model drift, ethics, and change management as essential components of any AI automation program.\n- Practical checklists: RFP questions, integration prerequisites, security controls, and vendor evaluation rubrics.\n- Accessibility and utility: offer downloadable templates, sample calculations, checklists, and a glossary to support quick-reference use.\n\n## 5) Sources & Research Requirements\n- Core references to establish authority and context:\n  - IBM: What is intelligent automation? (Educational page on IA components and applications)\n  - Salesforce: What Is AI Automation? (Enterprise platform messaging and ROI use cases)\n  - FT: AI agents: from co-pilot to autopilot (Deep-dive analysis on agentic AI and cross-industry implications)\n  - Business Insider: Executive perspectives on automation and job-market impact (timely, data-backed angles)\n  - Fiverr: What is AI Automation? (Beginner-primer with practical context)\n\n- Research plan:\n  - Use above sources to anchor definitions, market framing, and credible ROI ranges.\n  - Augment with current industry analyses from McKinsey, Gartner/Forrester (where accessible), Deloitte, and academic/industry case studies for real-world ROI benchmarks and implementation best practices.\n  - Gather practitioner quotes or brief interviews from VitCornu SMEs to contextualize frameworks for different industries.\n  - Validate data privacy, security, and governance considerations with standard frameworks (NIST, ISO, SOC 2) as applicable.\n\n- Content assets to gather and reference:\n  - Up-to-date industry case studies with before/after metrics.\n  - Typical ROI ranges by use case and industry, with explicit caveats.\n  - Definitions and taxonomies (consistently used across the hub).\n  - Checklists, templates, and sample RFP questions from credible sources or internal SOPs (adapted to a vendor-agnostic format).\n\n- Citations and attribution:\n  - Attribute factual statements to credible sources (IBM, Salesforce, FT, BI, Fiverr) and clearly label where VitCornu’s own guidance is synthesized or augmented with original playbooks.\n\n## 6) Success Metrics\n- SEO/Content Performance\n  - Organic traffic to the hub (targetUTM- or content group-level goals).\n  - Time on page, scroll depth, and pages per session for the hub.\n  - Rankings for primary and secondary keywords (e.g., “AI automation definitions,” “IA vs AI automation,” “RPA vs AI automation,” “AI automation ROI”).\n  - Click-through rate (CTR) to ROI calculator, case studies, and consultation pages.\n\n- Engagement and Conversion\n  - Downloads of ROI calculator and playbooks (lead magnets).\n  - Number of consultation requests or form submissions from the hub.\n  - Newsletter signups or content walled-gate signups tied to the hub.\n  - Downloads of vendor-agnostic templates (checklists, RFP questions).\n\n- Quality and Authority\n  - Backlinks from reputable tech and business media, industry reports, and credible blogs.\n  - On-page E-E-A-T indicators: author bios, expert quotes, references, and updated timelines.\n  - Internal links to VitCornu product pages, case studies, and related guides to strengthen topical authority.\n\n- Operational/Program Metrics\n  - Time-to-value indicators for ROI playbooks (e.g., average time to assemble a business case after using the hub).\n  - Lead-to-opportunity conversion rate for automation-related inquiries.\n  - Content refresh cadence and accuracy, measured by quarterly review milestones.\n\n- Governance and Compliance readouts\n  - Adoption of governance/checklists by readers (e.g., how many download the RFP checklist and complete it with a confidential contact).\n\n## 7) Content Execution and Optimization Notes\n- Tone and voice: professional, helpful, data-informed, and accessible. Keep explanations concise, with optional deep-dive sidebars.\n- Visuals: include a vendor-agnostic comparison matrix, flow diagrams of IA vs AI automation, and simple ROI calculation visuals.\n- SEO and structure\n  - Title tag suggestions: “AI Automation: A Vendor-Agnostic Comparison, ROI Playbooks & Case Studies | VitCornu”\n  - Meta description: “Explore AI automation, intelligent automation, and RPA with a vendor-agnostic guide featuring definitions, side-by-side comparisons, real-world ROI, and practical implementation playbooks.”\n  - Rich content: implement a FAQPage with common questions (e.g., “What’s the difference between IA and AI automation?”, “How do I calculate ROI for AI automation?”).\n  - Schema: Article, FAQPage, and, where applicable, How-To for ROI calculator and checklists.\n- Internal linking: map to VitCornu resources such as related automation guides, case studies, ROI calculators, and consulting services pages.\n- Accessibility: ensure alt text for visuals, accessible tables, and keyboard-navigable tools (ROI calculator).\n- Content maintenance: plan quarterly updates to ROI benchmarks, industry use cases, and governance recommendations to preserve authority.\n\n## 8) Proposed Deliverables and Assets\n- Primary hub page: AI Automation – Vendor-Agnostic Comparison, ROI Playbooks, and Case Studies (the main landing with links to downloadable tools).\n- Side-by-side comparison matrix (interactive where possible) covering IA, AI automation, RPA, and agentic AI.\n- ROI Calculator (downloadable or embeddable widget) with example scenarios by industry.\n- Industry case study briefs (finance, healthcare, manufacturing, services, logistics/retail) with measurable outcomes.\n- Practitioner checklist and RFP/RFI questions (vendor-agnostic).\n- Glossary of terms and a quick-reference cheat sheet.\n\nIf you’d like, I can tailor this brief further to align with VitCornu’s existing content ecosystem, pull in internal SME inputs, and draft a concrete production schedule with resource estimates."
+          },
+          "webhookUrl": "https://vitcornu.app.n8n.cloud/webhook/UpdateBriefAndStatus",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "FetchItembyStatus": [
+      {
+        "json": {
+          "headers": {
+            "host": "vitcornu.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "40.172.191.132",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "AE",
+            "cf-ray": "9d3690240d83e15d-MRS",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "cookie": "ajs_anonymous_id=%220425be4c-7c63-4709-ae4d-5ffe2a8406dd%22",
+            "forwarded": "for=59.103.216.15;host=vitcornu.app.n8n.cloud;proto=https",
+            "priority": "u=1, i",
+            "referer": "https://ai-content-swart.vercel.app/backlog",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-api-key": "your_api_key_here",
+            "x-forwarded-for": "40.172.191.132, 172.68.234.44",
+            "x-forwarded-host": "vitcornu.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-c65d8f959-7n2hn",
+            "x-is-trusted": "yes",
+            "x-real-ip": "40.172.191.132",
+            "x-vercel-forwarded-for": "59.103.216.15",
+            "x-vercel-id": "dxb1::g7mnd-1772015800638-25ec63c72778",
+            "x-vercel-ja4-digest": "t13d1517h2_8daaf6152771_b6f405a00624",
+            "x-vercel-proxied-for": "59.103.216.15",
+            "x-vercel-proxy-signature": "Bearer 214013090a657a1f782f6e00cf64e43c713dd4670af3e3a800ef3924d8950daa",
+            "x-vercel-proxy-signature-ts": "1772016100"
+          },
+          "params": {},
+          "query": {
+            "status": "Raw Idea"
+          },
+          "body": {},
+          "webhookUrl": "https://vitcornu.app.n8n.cloud/webhook/FetchBriefedItem",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "AnalyzeKeyword_Backend": [
+      {
+        "json": {
+          "headers": {
+            "host": "vitcornu.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+            "content-length": "0",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "158.252.35.209",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "AE",
+            "cf-ray": "9d38a67f6b5eb698-MRS",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "cookie": "ajs_anonymous_id=%220425be4c-7c63-4709-ae4d-5ffe2a8406dd%22",
+            "forwarded": "for=39.49.173.3;host=vitcornu.app.n8n.cloud;proto=https",
+            "origin": "https://ai-content-swart.vercel.app",
+            "priority": "u=1, i",
+            "referer": "https://ai-content-swart.vercel.app/analyze",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-api-key": "your_api_key_here",
+            "x-forwarded-for": "158.252.35.209, 162.159.122.189",
+            "x-forwarded-host": "vitcornu.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-c65d8f959-hb5rg",
+            "x-is-trusted": "yes",
+            "x-real-ip": "158.252.35.209",
+            "x-vercel-forwarded-for": "39.49.173.3",
+            "x-vercel-id": "dxb1::x7cnm-1772037687908-68db3e51a3e8",
+            "x-vercel-ja4-digest": "t13d1517h2_8daaf6152771_b6f405a00624",
+            "x-vercel-proxied-for": "39.49.173.3",
+            "x-vercel-proxy-signature": "Bearer 3949de1b757ec3bb6825aefcd662aeb1698e77e1afa7ba494e6e84a440805582",
+            "x-vercel-proxy-signature-ts": "1772037987"
+          },
+          "params": {},
+          "query": {
+            "Brand_Name": "VitCornu",
+            "Keyword": "best snow shoe"
+          },
+          "body": {},
+          "webhookUrl": "https://vitcornu.app.n8n.cloud/webhook/AnalyzeKeyword_Backend",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "SaveScoredIdea": [
+      {
+        "json": {
+          "headers": {
+            "host": "vitcornu.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+            "content-length": "0",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "13.212.55.236",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "SG",
+            "cf-ray": "9d390d483914fd4f-NRT",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "cookie": "ajs_anonymous_id=%220425be4c-7c63-4709-ae4d-5ffe2a8406dd%22",
+            "forwarded": "for=103.151.43.98;host=vitcornu.app.n8n.cloud;proto=https",
+            "origin": "https://ai-content-swart.vercel.app",
+            "priority": "u=1, i",
+            "referer": "https://ai-content-swart.vercel.app/analyze",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-api-key": "your_api_key_here",
+            "x-forwarded-for": "13.212.55.236, 172.70.122.225",
+            "x-forwarded-host": "vitcornu.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-c65d8f959-hb5rg",
+            "x-is-trusted": "yes",
+            "x-real-ip": "13.212.55.236",
+            "x-vercel-forwarded-for": "103.151.43.98",
+            "x-vercel-id": "sin1::mkhzk-1772041898045-3bb71d262f0c",
+            "x-vercel-ja4-digest": "t13d1517h2_8daaf6152771_b6f405a00624",
+            "x-vercel-proxied-for": "103.151.43.98",
+            "x-vercel-proxy-signature": "Bearer 1b34f5b209b534dacb5da6ab2c07d1d2907353f6299b8579192d1aebe8df4425",
+            "x-vercel-proxy-signature-ts": "1772042198"
+          },
+          "params": {},
+          "query": {
+            "Keyword": "Best Snow jacket",
+            "Brand": "VitCornu",
+            "scores_p": "4",
+            "scores_a": "3",
+            "scores_v": "4",
+            "scores_e": "4",
+            "search_summary": "**Keyword:** Best Snow jacket\n**Date:** 2026-02-25\n**Search Intent:** Commercial\n\n**Top 5 Results:**\n\n| # | Domain | Title | Content Type | Key Strength |\n|---|--------|-------|--------------|--------------|\n| 1 | t3.com | Patagonia's 'work of art' winter parka is back and it might be the warmest jacket you can buy | News Article | Highlights Patagonia's Grade VII Down Parka's exceptional warmth and features. |\n| 2 | whowhatwear.com | We Tried The Viral Winter Coat Every New Yorker Owns-Here's Why It Lives Up the Hype | Review Article | Reviews Aritzia's Super Puff jacket, emphasizing its warmth and style. |\n| 3 | tomsguide.com | I test outdoor gear for a living - and the best Patagonia jacket I've ever owned is 30% off right now | Review Article | Praises Patagonia's Nano Puff Jacket for its reliability and versatility. |\n| 4 | gearjunkie.com | The Best Snowboard Jackets of 2025-2026 | Product Review | Lists top snowboard jackets, including Trew Gear's Cosmic PRIMO Jacket. |\n| 5 | cyclingweekly.com | The top-ranking winter jacket you always wanted but could never afford is now 30% off: Castelli Alpha Doppio prices slashed | News Article | Highlights discounts on Castelli's Alpha Doppio winter cycling jacket. |\n\n**Pattern Analysis:**\n- Dominant content format: Reviews and product highlights.\n- Common authority signals: Brand recognition, expert reviews, and user testimonials.\n- SERP features present: News articles, product reviews, and price discounts.\n- Content gap opportunity: Detailed comparisons between top snow jackets.\n\n**Confidence:** High ",
+            "reasoning": "AI helps aggregate data and draft comparisons; human testing validates claims."
+          },
+          "body": {},
+          "webhookUrl": "https://vitcornu.app.n8n.cloud/webhook/SaveScoredIdea",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "FetchAllItems": [
+      {
+        "json": {
+          "headers": {
+            "host": "vitcornu.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "54.254.210.253",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "SG",
+            "cf-ray": "9d40cb34ea354115-SIN",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "cookie": "ajs_anonymous_id=%220425be4c-7c63-4709-ae4d-5ffe2a8406dd%22",
+            "forwarded": "for=103.151.43.98;host=vitcornu.app.n8n.cloud;proto=https",
+            "priority": "u=1, i",
+            "referer": "https://ai-content-swart.vercel.app/backlog",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-api-key": "your_api_key_here",
+            "x-forwarded-for": "54.254.210.253, 162.158.106.219",
+            "x-forwarded-host": "vitcornu.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-7d8f9c97c5-4qm8c",
+            "x-is-trusted": "yes",
+            "x-real-ip": "54.254.210.253",
+            "x-vercel-forwarded-for": "103.151.43.98",
+            "x-vercel-id": "sin1::wjsjl-1772123077860-9c585a8df0ea",
+            "x-vercel-ja4-digest": "t13d1517h2_8daaf6152771_b6f405a00624",
+            "x-vercel-proxied-for": "103.151.43.98",
+            "x-vercel-proxy-signature": "Bearer 7bcdafd6aede581ce4341cddba23e24ef5d4ba178d4c5f9999a1f8c4181e22a9",
+            "x-vercel-proxy-signature-ts": "1772123377"
+          },
+          "params": {},
+          "query": {},
+          "body": {},
+          "webhookUrl": "https://vitcornu.app.n8n.cloud/webhook/FetchAllItems",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "GenerateAuthorityBrief": [
+      {
+        "json": {
+          "headers": {
+            "host": "vitcornu.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+            "content-length": "1435",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "39.49.173.3",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "PK",
+            "cf-ray": "9d41497af82d3e65-SIN",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "origin": "http://localhost:5173",
+            "referer": "http://localhost:5173/brief",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-api-key": "your_api_key_here",
+            "x-forwarded-for": "39.49.173.3, 108.162.226.78",
+            "x-forwarded-host": "vitcornu.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-7d8f9c97c5-4qm8c",
+            "x-is-trusted": "yes",
+            "x-real-ip": "39.49.173.3"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "Keyword": "Best Coffee Maker",
+            "Brand": "VitCornu",
+            "Persona": "Professional",
+            "Tone": "Helpful",
+            "Format": "Comparison Page",
+            "Search Summary": "**Keyword:** Best Coffee Maker\n**Date:** February 26, 2026\n**Search Intent:** Commercial\n\n**Top 5 Results:**\n\n| # | Domain | Title | Content Type | Key Strength |\n|---|--------|-------|--------------|--------------|\n| 1 | www.tomsguide.com | Tom's Guide Awards 2025: Our favorite robot vacuums, coffee machines, blenders and more | Product Review | Comprehensive product evaluations |\n| 2 | www.foodnetwork.com | 8 Best Coffeemakers 2026 Reviewed | Food Network | Expert product reviews |\n| 3 | www.the-independent.com | Best coffee makers for 2026, tried and tested by a barista | The Independent | Barista-tested recommendations |\n| 4 | www.wired.com | 6 Best Coffee Makers (2026): Drip Is Drippin’ | WIRED | In-depth product analysis |\n| 5 | www.architecturaldigest.com | 15 Best Coffee Makers to Buy in 2025 and Use Forever | Architectural Digest | Long-term usability focus |\n\n**Pattern Analysis:**\n- **Dominant content format:** Product reviews and comparisons\n- **Common authority signals:** Expert evaluations, barista testing, comprehensive analyses\n- **SERP features present:** Product listings, featured snippets\n- **Content gap opportunity:** Detailed guides on maintenance and longevity of coffee makers\n\n**Confidence:** High ",
+            "Differentiator": "",
+            "SME Input": ""
+          },
+          "webhookUrl": "https://vitcornu.app.n8n.cloud/webhook/GenerateAuthorityBrief",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Get row(s) in sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Respond to FetchBacklogIdeas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FetchBacklogIdeas": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FetchItemDetails": {
+      "main": [
+        [
+          {
+            "node": "Get an item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to SaveScoredIdea",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SaveScoredIdea": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Calculate pave score",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Calculate pave score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate pave score": {
+      "main": [
+        [
+          {
+            "node": "Create or update item (upsert)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create or update item (upsert)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "get all brands in a list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetActiveBrands": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get all brands in a list": {
+      "main": [
+        [
+          {
+            "node": "Get many items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetBrandDetails": {
+      "main": [
+        [
+          {
+            "node": "get_brand_details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_brand_details": {
+      "main": [
+        [
+          {
+            "node": "Get many items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateBriefAndStatus": {
+      "main": [
+        [
+          {
+            "node": "Update item in a list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update brief text": {
+      "main": [
+        [
+          {
+            "node": "Respond to UpdateBriefAndStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UpdateContentStatus": {
+      "main": [
+        [
+          {
+            "node": "Update item in a list1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update status text": {
+      "main": [
+        [
+          {
+            "node": "Respond to UpdateContentStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AnalyzeKeyword_Backend": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet3": {
+      "main": [
+        []
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to AnalyzeKeyword_Backend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BriefRecommendation": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Respond to BriefRecommendation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenerateAuthorityBrief": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Respond to GenerateAuthorityBrief",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Respond to ProduceContent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet4": {
+      "main": [
+        []
+      ]
+    },
+    "FetchItembyStatus": {
+      "main": [
+        [
+          {
+            "node": "Get many items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet5": {
+      "main": [
+        []
+      ]
+    },
+    "FetchAllItems": {
+      "main": [
+        [
+          {
+            "node": "Get many items3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent4": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Respond to GenerateHTMLarticle1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenerateHTMLarticle1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ProduceContent": {
+      "main": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent5": {
+      "main": [
+        [
+          {
+            "node": "Generate an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate an image": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "Share file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Share file": {
+      "main": [
+        [
+          {
+            "node": "AI Agent6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent6": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model8": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent6",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get all brands in a list1": {
+      "main": [
+        [
+          {
+            "node": "Respond to GetActiveBrands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent7": {
+      "main": [
+        []
+      ]
+    },
+    "Get many items in Microsoft SharePoint": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent7",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model9": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent7",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser2": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent7",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model10": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many items": {
+      "main": [
+        [
+          {
+            "node": "get all brands in a list1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many items1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "Respond to GetBrandDetails1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update item (upsert)": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript5": {
+      "main": [
+        [
+          {
+            "node": "Respond to FetchItembyStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many items2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get an item": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript6": {
+      "main": [
+        [
+          {
+            "node": "Respond to FetchItemDetails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update item in a list": {
+      "main": [
+        [
+          {
+            "node": "update brief text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update item in a list1": {
+      "main": [
+        [
+          {
+            "node": "update status text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many items3": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript7": {
+      "main": [
+        [
+          {
+            "node": "Respond to FetchAllItems",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "bee7a07f-3d9d-4cfc-91e1-a59b24e93fae",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b17952fdda23ea95a35573e60f9e1f79c4cf3d049dcd678b8e5f264230f42dae"
+  },
+  "id": "uhbm0vva0AAAGgZnZ2-iL",
+  "tags": []
+}
