@@ -110,7 +110,7 @@ export default function Published() {
     return (
         <div className="animate-fade-in">
             <div className="page-header">
-                <h1 className="page-title">🚀 Published Content</h1>
+                <h1 className="page-title">🚀 In Production Content</h1>
                 <p className="page-subtitle">
                     Browse your content — {inProductionItems.length} in production
                 </p>

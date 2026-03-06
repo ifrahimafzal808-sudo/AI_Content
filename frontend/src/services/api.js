@@ -58,7 +58,7 @@ const MOCK_BACKLOG = [
         brand: 'HealthFirst',
         pave_scores: { P: 5, A: 5, V: 4, E: 4 },
         total_score: 18,
-        status: 'Published',
+        status: 'In Production',
         created_date: '2026-01-28'
     },
     {
@@ -67,7 +67,7 @@ const MOCK_BACKLOG = [
         brand: 'Vit Cornu',
         pave_scores: { P: 4, A: 3, V: 5, E: 3 },
         total_score: 15,
-        status: 'Published',
+        status: 'In Production',
         created_date: '2026-01-20'
     },
     {
@@ -494,7 +494,7 @@ class ApiService {
             method: 'PUT',
             body: JSON.stringify({
                 id: id,
-                new_status: 'Published'
+                new_status: 'In Production'
             })
         })
     }

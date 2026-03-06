@@ -6,7 +6,7 @@ const navigation = [
     { name: 'Content Backlog', href: '/backlog', icon: '📋' },
     { name: 'Create Brief', href: '/brief', icon: '📝' },
     { name: 'Produce Content', href: '/produce', icon: '⚡' },
-    { name: 'Published', href: '/published', icon: '🚀' }
+    { name: 'In Production', href: '/published', icon: '🚀' }
 ]
 
 export default function Sidebar() {
