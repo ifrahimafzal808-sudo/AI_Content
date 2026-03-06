@@ -6,8 +6,7 @@ export default function StatusBadge({ status }) {
         'Approved for Briefing': 'badge-success',
         'Briefed': 'badge-primary',
         'In-Progress': 'badge-warning',
-        'In Production': 'badge-warning',
-        'Published': 'badge-success',
+        'In Production': 'badge-success',
         'Error': 'badge-error'
     }
 
